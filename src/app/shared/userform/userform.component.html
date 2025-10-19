@@ -1,0 +1,132 @@
+<div
+  #modalElement
+  id="authentication-modal"
+  tabindex="-1"
+  aria-hidden="true"
+  class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full"
+>
+  <div class="relative p-4 w-full max-w-[800px] max-h-full">
+    <!-- Modal content -->
+    <div class="relative bg-white rounded-3xl border-2 border-[#d9d9d9] shadow-sm h-[600px]">
+      <!-- Modal header -->
+      <div
+        class="flex items-center p-4 md:p-5 border-b rounded-t-3xl bg-gradient-to-r from-seagreen via-[#2192A5] to-[#116976] border-gray-200"
+      >
+        <h3 class="text-xl text-center font-semibold text-white">Add User</h3>
+        <button
+          (click)="close()"
+          type="button"
+          class="end-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center"
+        >
+          <svg
+            class="w-3 h-3"
+            aria-hidden="true"
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 14 14"
+          >
+            <path
+              stroke="currentColor"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"
+            />
+          </svg>
+          <span class="sr-only">Close modal</span>
+        </button>
+      </div>
+      <!-- Modal body -->
+      <div class="p-4 md:p-5">
+        <form [formGroup]="userDataForm" (ngSubmit)="onSubmit()" class="space-y-4 md:space-y-6">
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div>
+              <label
+                for="name"
+                class="block mb-2 text-sm font-medium text-gray-900"
+                >Your name</label
+              >
+              <input
+                type="text"
+                name="name"
+                id="name"
+                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                placeholder="Enter your full name"
+                formControlName="name"
+                required
+              />
+            </div>
+
+            <div>
+              <label
+                for="email"
+                class="block mb-2 text-sm font-medium text-gray-900"
+                >Your email</label
+              >
+              <input
+                type="email"
+                name="email"
+                id="email"
+                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                placeholder="name@company.com"
+                formControlName="email"
+                required
+              />
+            </div>
+
+            <div>
+              <label
+                for="phone"
+                class="block mb-2 text-sm font-medium text-gray-900"
+                >Phone Number</label
+              >
+              <input
+                type="tel"
+                name="phone"
+                id="phone"
+                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                placeholder="e.g., +1 234 567 8900"
+                formControlName="contact"
+                required
+              />
+            </div>
+
+            <div>
+              <label
+                for="role"
+                class="block mb-2 text-sm font-medium text-gray-900"
+                >Role</label
+              >
+              <input
+                type="text"
+                name="role"
+                id="role"
+                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                placeholder="e.g., Software Engineer"
+                formControlName="role"
+                required
+              />
+            </div>
+
+            <div class="md:col-span-2">
+             <app-multidropdown></app-multidropdown>
+              
+            </div>
+          </div>
+           <p class="text-right underline text-[#D98B19] hover:text-yellow-600 text-sm">+ Add another user</p>
+            <div class="flex gap-3 justify-end ">
+      <app-button [buttonText]="'Cancel'"></app-button>
+      <button 
+        type="submit" 
+        [disabled]="userDataForm.invalid" 
+        class="bg-blue-500 text-white px-4 py-2 rounded"
+        data-modal-hide="authentication-modal"
+      >
+        Save
+      </button>
+  </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,15 @@
+<div class="flex">
+    <div class="quill-container">
+        <h3 class="text-seagreen font-semibold">New Item</h3>
+        <quill-editor
+            [(ngModel)]="content"
+            [styles]="{height: '300px'}"
+            placeholder="Write your text here..."
+            
+        ></quill-editor>
+        </div>
+        <div class="flex flex-col gap-6 m-3 justify-center">
+        <app-button [buttonText]="'Add'" (click)="onAddClick()"></app-button>
+        <app-cancel-button [btn_text]="'Cancel All'"></app-cancel-button>
+        </div>
+</div>

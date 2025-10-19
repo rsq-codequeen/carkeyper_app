@@ -1,0 +1,13 @@
+@import 'quill/dist/quill.core.css';
+
+/* Choose one theme (snow is the most common) */
+@import 'quill/dist/quill.snow.css';
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.quill-container {
+  border: 1px solid #ccc;
+  padding: 10px;
+  border-radius: 8px;
+}
