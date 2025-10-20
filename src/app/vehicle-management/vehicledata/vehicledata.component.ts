@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { SharedModule } from "../../shared/shared.module";
 import { VehicleService } from '../../services/vehicle.service'; 
 import { Subscription } from 'rxjs';
-import { VehicleformComponent } from '../../shared/vehicleform/vehicleform.component';
+// import { VehicleformComponent } from '../../shared/vehicleform/vehicleform.component';
 
 
 @Component({
@@ -17,19 +17,18 @@ import { VehicleformComponent } from '../../shared/vehicleform/vehicleform.compo
 })
 export class VehicledataComponent {
    currentDate = new Date(); 
-      users:any[]=[]
+      vehicles:any[]=[]
       private usersSubscription!: Subscription;
       private vehicleService = inject(VehicleService);
       constructor() {}
   
   
-      @ViewChild(VehicleformComponent) userformModal!: VehicleformComponent;
       ngOnInit(): void {
         // Subscribe to the correct observable from the new service
         this.usersSubscription = this.vehicleService.getVehicles().subscribe(
             (latestVehicles) => {
-                this.users = latestVehicles; // Note: you might want to rename this to `vehicles`
-                console.log('Received new vehicle list:', this.users);
+                this.vehicles = latestVehicles; // Note: you might want to rename this to `vehicles`
+                console.log('Received new vehicle list:', this.vehicles);
             }
         );
     }
@@ -43,13 +42,8 @@ export class VehicledataComponent {
         this.vehicleService.deleteVehicle(vehicle); // 👈 Call the correct method
     }
 
-      onEdit(vehicle: any) {
-        this.userformModal.userData = vehicle;
-        this.openUserFormModal();
-    }
-    openUserFormModal() {
-      this.userformModal.open();
-    }
+     
+   
      
 }
 

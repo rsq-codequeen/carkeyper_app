@@ -12,9 +12,9 @@ import { CommonModule } from '@angular/common';
 export class ButtonComponent {
    @Input() buttonText:string=''
    @Output() buttonClick = new EventEmitter<void>();
-  onClick(): void {
-    // This will emit the event regardless of other button logic
-    this.buttonClick.emit();
-  }
+    onClick(): void {
+      // This will emit the event regardless of other button logic
+      this.buttonClick.emit();
+    }
  
 }

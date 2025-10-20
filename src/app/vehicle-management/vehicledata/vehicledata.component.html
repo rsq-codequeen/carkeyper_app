@@ -9,7 +9,7 @@
           <app-searchbar></app-searchbar>
           <app-button
             [buttonText]="'Add vehicle'"
-            (click)="openUserFormModal()"
+           
           ></app-button>
         </div>
         <div
@@ -34,7 +34,7 @@
               </tr>
             </thead>
             <tbody>
-              <tr *ngIf="users.length===0">
+              <tr *ngIf="vehicles.length===0">
                 <td></td>
                 <td></td>
                 <td></td>
@@ -43,19 +43,19 @@
                        <figure>
                           <img src="../../../assets/Frame.png" alt="">
                        </figure>
-                       <h1 class="text-xl font-bold">No Users Found</h1>
+                       <h1 class="text-xl font-bold">No Vehicle Found</h1>
                   </td>
               </tr>
-               <tr *ngFor="let user of users; let i = index" class="border-b">
+               <tr *ngFor="let vehicle of vehicles; let i = index" class="border-b">
                     <td class="px-6 py-4">{{ i + 1 }}</td>
-                    <td class="px-6 py-4">{{ user.name }}</td>
-                     <td class="px-6 py-4">{{ user.reg }}</td>
-                    <td class="px-6 py-4">{{ user.type }}</td>
-                    <td class="px-6 py-4">{{ user.color }}</td>
-                    <td class="px-6 py-4">{{ user.make }}</td>
-                    <td class="px-6 py-4">{{ user.feul }}</td>
-                    <td class="px-6 py-4">{{ user.transmission }}</td>
-                    <td class="px-6 py-4">{{ user.model }}</td>
+                    <td class="px-6 py-4">{{ vehicle.name }}</td>
+                     <td class="px-6 py-4">{{ vehicle.reg }}</td>
+                    <td class="px-6 py-4">{{ vehicle.type }}</td>
+                    <td class="px-6 py-4">{{ vehicle.color }}</td>
+                    <td class="px-6 py-4">{{ vehicle.make }}</td>
+                    <td class="px-6 py-4">{{ vehicle.feul }}</td>
+                    <td class="px-6 py-4">{{ vehicle.transmission }}</td>
+                    <td class="px-6 py-4">{{ vehicle.model }}</td>
                    
                   <td class="px-6 py-4">
                       <app-userform-dropdown></app-userform-dropdown>
@@ -67,7 +67,7 @@
                     viewBox="0 0 24 24"
                     fill="currentColor"
                     class="size-6 text-seagreen"
-                    (click)="onEdit(user)"
+                    
                   >
                     <path
                       d="M21.731 2.269a2.625 2.625 0 0 0-3.712 0l-1.157 1.157 3.712 3.712 1.157-1.157a2.625 2.625 0 0 0 0-3.712ZM19.513 8.199l-3.712-3.712-12.15 12.15a5.25 5.25 0 0 0-1.32 2.214l-.8 2.685a.75.75 0 0 0 .933.933l2.685-.8a5.25 5.25 0 0 0 2.214-1.32L19.513 8.2Z"
@@ -81,7 +81,7 @@
                     viewBox="0 0 24 24"
                     fill="currentColor"
                     class="size-6 text-[#FB5D5D]"
-                    (click)="onDelete(user)"
+                    (click)="onDelete(vehicle)"
                   >
                     <path
                       fill-rule="evenodd"
@@ -99,4 +99,4 @@
   </div>
 </div>
 
-<app-vehicleform></app-vehicleform>
+

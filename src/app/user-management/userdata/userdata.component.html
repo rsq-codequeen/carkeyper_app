@@ -9,9 +9,19 @@
           <app-searchbar></app-searchbar>
           <app-button
             [buttonText]="'Add user'"
-            (click)="openUserFormModal()"
+            (buttonClick)="openAddUserModal()"
           ></app-button>
         </div>
+
+        <!-- moved modal into userform component -->
+        <app-userform
+          *ngIf="showModal"
+          [user]="selectedUser"  
+          (close)="closeModal()"
+          (userAdded)="onUserAdded($event)"
+          (userUpdated)="onUserUpdated($event)"
+        ></app-userform>
+
         <div
           class="border-2 border-[#d9d9d9] overflow-x-auto rounded-3xl shadow-md m-6"
         >
@@ -53,18 +63,17 @@
                       <app-mechanic-button *ngIf="user.role.toLowerCase()==='mechanic'"></app-mechanic-button>
                       <app-driver-button *ngIf="user.role.toLowerCase()==='driver'"></app-driver-button>
                     </td>
-                  <td class="px-6 py-4">
-                      <app-userform-dropdown></app-userform-dropdown>
-                  </td>
+                    <td class="px-6 py-4">{{user.assignedVehicles}}</td>
                 <td class="px-6 py-4">{{currentDate|date}}</td>
                 <td class="px-6 py-4">
                   <!-- edit icon -->
+                   
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     viewBox="0 0 24 24"
                     fill="currentColor"
                     class="size-6 text-seagreen"
-                    (click)="onEdit(user)"
+                   (click)="openEditModal(user)" 
                   >
                     <path
                       d="M21.731 2.269a2.625 2.625 0 0 0-3.712 0l-1.157 1.157 3.712 3.712 1.157-1.157a2.625 2.625 0 0 0 0-3.712ZM19.513 8.199l-3.712-3.712-12.15 12.15a5.25 5.25 0 0 0-1.32 2.214l-.8 2.685a.75.75 0 0 0 .933.933l2.685-.8a5.25 5.25 0 0 0 2.214-1.32L19.513 8.2Z"
@@ -96,4 +105,3 @@
   </div>
 </div>
 
-<app-userform></app-userform>

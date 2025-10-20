@@ -1,15 +1,17 @@
 // src/app/services/user.service.ts
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Subject, Observable ,throwError,of} from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { Checklist } from '../checklist/checklist';
 import { catchError } from 'rxjs/operators';
+import { BehaviorSubject } from 'rxjs';
+import { User } from '../user-management/user';
+
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
-
-   private dummyChecklists: Checklist[] = [
+  private dummyChecklists: Checklist[] = [
     {
       checklistTitle: 'Daily Safety Inspection',
       checklistTime: '09:00 AM',
@@ -29,57 +31,66 @@ export class UserService {
       assignedVehicle: 'Tractor #789'
     }
   ];
-  private users: any[] = [];
-  private usersSubject = new Subject<any[]>();
- 
 
-  constructor(private httpClient:HttpClient) {}
+  // start with empty list
+  private usersSubject = new BehaviorSubject<User[]>([]);
 
-  // This method allows components to subscribe to data updates.
-  getUsers(): Observable<any[]> {
+  constructor(private httpClient: HttpClient) {}
+
+  // components subscribe to this
+  getUsers(): Observable<User[]> {
     return this.usersSubject.asObservable();
   }
 
-  // This method adds a new user and broadcasts the updated list.
-  addUser(user: any) {
-    this.users.push(user);
-    this.usersSubject.next(this.users);
+  // add a user and emit updated list
+  addUser(user: User) {
+    const current = this.usersSubject.value || [];
+    const newUser: User = {
+      ...user,
+      id: user.id ?? Date.now(),
+      joinedDate: user.joinedDate ?? new Date()
+    };
+    this.usersSubject.next([newUser, ...current]);
   }
-   deleteUser(userToDelete: any) {
-    this.users = this.users.filter(user => user !== userToDelete);
-    this.usersSubject.next(this.users);
+
+  // delete a user (by id when available)
+  deleteUser(user: User) {
+    const current = this.usersSubject.value || [];
+    const filtered = current.filter(u =>
+      (u.id != null && user.id != null) ? u.id !== user.id : u !== user
+    );
+    this.usersSubject.next(filtered);
   }
-   editUser(originalUser: any, updatedUser: any) {
-    const index = this.users.indexOf(originalUser);
+
+  // replace/edit a user
+  editUser(originalUser: User, updatedUser: User) {
+    const current = this.usersSubject.value || [];
+    const index = current.findIndex(u => (u.id != null && originalUser.id != null) ? u.id === originalUser.id : u === originalUser);
     if (index !== -1) {
-      this.users[index] = updatedUser;
-      this.usersSubject.next(this.users);
+      const copy = [...current];
+      copy[index] = { ...updatedUser, id: originalUser.id ?? updatedUser.id };
+      this.usersSubject.next(copy);
     }
   }
-  
-   saveChecklist(checklist: Checklist): Observable<Checklist> {
-  const url = 'http://localhost:8000/checklist';
-  console.log('Sending request to:', url); // Check if this log appears
-  return this.httpClient.post<Checklist>(url, checklist).pipe(
-    catchError(error => {
-      console.error('Caught error in pipe:', error); // Check if this log appears
-      return of(checklist);
-    })
-  );
-}
-  getChecklist():Observable<Checklist[]>{
-       try {
-      // In a real app, this would be an http.get() call
-      // For now, we'll throw an error to trigger the catch block
-      throw new Error('API is down. Using dummy data.');
 
-      // You can return the dummy data here directly if you don't need the try-catch for now
-      // return of(this.dummyChecklists);
+  // checklist logic unchanged
+  saveChecklist(checklist: Checklist): Observable<Checklist> {
+    const url = 'http://localhost:8000/checklist';
+    console.log('Sending request to:', url);
+    return this.httpClient.post<Checklist>(url, checklist).pipe(
+      catchError(error => {
+        console.error('Caught error in pipe:', error);
+        return of(checklist);
+      })
+    );
+  }
+
+  getChecklist(): Observable<Checklist[]> {
+    try {
+      throw new Error('API is down. Using dummy data.');
     } catch (error) {
       console.error('API call failed. Returning dummy data.');
-      // 🚨 Return the dummy data wrapped in an Observable using `of()`
       return of(this.dummyChecklists);
     }
   }
-
 }

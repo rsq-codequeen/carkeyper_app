@@ -12,7 +12,6 @@ import { UserformDropdownComponent } from './userdata-dropdown/userform-dropdown
 import { CancelButtonComponent } from './cancel-button/cancel-button.component';
 import { FormsModule } from '@angular/forms';
 import { QuillModule } from 'ngx-quill'; 
-import { VehicleformComponent } from './vehicleform/vehicleform.component';
 @NgModule({
   declarations: [],
   imports: [
@@ -29,7 +28,7 @@ import { VehicleformComponent } from './vehicleform/vehicleform.component';
     FormsModule,
     QuillModule,
     CancelButtonComponent,
-    VehicleformComponent
+
   ],
   exports:[
     SidebarComponent,
@@ -44,7 +43,6 @@ import { VehicleformComponent } from './vehicleform/vehicleform.component';
     FormsModule,
     QuillModule,
     CancelButtonComponent,
-    VehicleformComponent
   ]
 })
 export class SharedModule { }

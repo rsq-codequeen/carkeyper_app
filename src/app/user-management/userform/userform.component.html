@@ -1,0 +1,72 @@
+<!-- modal markup moved here -->
+<div class="fixed inset-0 flex items-center justify-center"> <!-- removed z on parent -->
+  <div class="absolute inset-0 bg-black opacity-50 z-40" (click)="closeModal()"></div> <!-- backdrop lower z -->
+  <div class="bg-white rounded-xl shadow-lg w-full max-w-2xl z-50 p-6 relative"> <!-- modal higher z -->
+    <header class="flex justify-between items-center mb-4">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6 ">
+  <path d="M5.25 6.375a4.125 4.125 0 1 1 8.25 0 4.125 4.125 0 0 1-8.25 0ZM2.25 19.125a7.125 7.125 0 0 1 14.25 0v.003l-.001.119a.75.75 0 0 1-.363.63 13.067 13.067 0 0 1-6.761 1.873c-2.472 0-4.786-.684-6.76-1.873a.75.75 0 0 1-.364-.63l-.001-.122ZM18.75 7.5a.75.75 0 0 0-1.5 0v2.25H15a.75.75 0 0 0 0 1.5h2.25v2.25a.75.75 0 0 0 1.5 0v-2.25H21a.75.75 0 0 0 0-1.5h-2.25V7.5Z" />
+</svg>
+      <h3 class="text-lg font-semibold ">Add User</h3>
+      <button (click)="closeModal()" class="text-gray-600 hover:text-gray-800">✕</button>
+    </header>
+
+    <form [formGroup]="userForm" (ngSubmit)="submit()" class="space-y-4">
+      <div class="grid grid-cols-2 gap-4">
+        <div>
+          <label class="block text-sm font-medium mb-1">Name</label>
+          <input formControlName="name" type="text" class="w-full border rounded px-3 py-2" />
+          <div *ngIf="userForm.get('name')?.touched && userForm.get('name')?.invalid" class="text-red-500 text-sm">Name is required</div>
+        </div>
+
+        <div>
+          <label class="block text-sm font-medium mb-1">Email</label>
+          <input formControlName="email" type="email" class="w-full border rounded px-3 py-2" />
+          <div *ngIf="userForm.get('email')?.touched && userForm.get('email')?.invalid" class="text-red-500 text-sm">Enter a valid email</div>
+        </div>
+
+        <div>
+    <label class="block text-sm font-medium mb-1 text-gray-600">Phone</label>
+    <input
+        formControlName="contact"
+        type="tel"
+        placeholder="03331234567 or +923331234567"
+        class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-indigo-500 focus:border-indigo-500 transition duration-150"
+        
+       
+        maxlength="11" 
+        />
+    <div *ngIf="userForm.get('contact')?.touched && userForm.get('contact')?.invalid" class="text-red-500 text-xs mt-1">
+        <div *ngIf="userForm.get('contact')?.errors?.['required']">Phone number is required.</div>
+        <div *ngIf="userForm.get('contact')?.errors?.['pattern']">
+            Must be a valid Pakistani mobile number (e.g., 03XXXXXXXXX or +923XXXXXXXXX).
+        </div>
+    </div>
+</div>
+
+        <div>
+          <label class="block text-sm font-medium mb-1">Role</label>
+          <select formControlName="role" class="w-full border rounded px-3 py-2">
+            <option value="admin">Admin</option>
+            <option value="mechanic">Mechanic</option>
+            <option value="driver">Driver</option>
+          </select>
+        </div>
+
+        <div class="col-span-2">
+          <label class="block text-sm font-medium mb-1">Assigned Vehicles</label>
+          <input formControlName="assignedVehicles" type="text" class="w-full border rounded px-3 py-2" placeholder="Comma-separated IDs or names" />
+        </div>
+      </div>
+
+      <div class="flex justify-end gap-3 mt-4">
+        <button type="button" (click)="closeModal()" class="px-4 py-2 bg-gray-200 rounded">Cancel</button>
+        <button type="submit" class="px-4 py-2 bg-seagreen text-white rounded flex items-center">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6 mr-2">
+  <path [attr.fill-rule]="'evenodd'" d="M6.32 2.577a49.255 49.255 0 0 1 11.36 0c1.497.174 2.57 1.46 2.57 2.93V21a.75.75 0 0 1-1.085.67L12 18.089l-7.165 3.583A.75.75 0 0 1 3.75 21V5.507c0-1.47 1.073-2.756 2.57-2.93Z" [attr.clip-rule]="'evenodd'" />
+        </svg>
+
+          Save</button>
+      </div>
+    </form>
+  </div>
+</div>
