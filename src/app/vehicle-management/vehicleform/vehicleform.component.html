@@ -1,0 +1,110 @@
+<!-- modal markup moved here -->
+<div class="fixed inset-0 flex items-center justify-center">
+  <div class="absolute inset-0 bg-black opacity-50 z-40" (click)="closeModal()"></div>
+  <div class="bg-white rounded-xl shadow-lg w-full max-w-2xl z-50 p-6 relative">
+    <header class="flex justify-between items-center mb-4">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6">
+  <path d="M3.375 4.5C2.339 4.5 1.5 5.34 1.5 6.375V13.5h12V6.375c0-1.036-.84-1.875-1.875-1.875h-8.25ZM13.5 15h-12v2.625c0 1.035.84 1.875 1.875 1.875h.375a3 3 0 1 1 6 0h3a.75.75 0 0 0 .75-.75V15Z" />
+  <path d="M8.25 19.5a1.5 1.5 0 1 0-3 0 1.5 1.5 0 0 0 3 0ZM15.75 6.75a.75.75 0 0 0-.75.75v11.25c0 .087.015.17.042.248a3 3 0 0 1 5.958.464c.853-.175 1.522-.935 1.464-1.883a18.659 18.659 0 0 0-3.732-10.104 1.837 1.837 0 0 0-1.47-.725H15.75Z" />
+  <path d="M19.5 19.5a1.5 1.5 0 1 0-3 0 1.5 1.5 0 0 0 3 0Z" />
+</svg>
+
+      <h3 class="text-lg font-semibold ">Add / Edit Vehicle</h3>
+      <button (click)="closeModal()" class="text-gray-600 hover:text-gray-800">✕</button>
+    </header>
+
+    <form [formGroup]="vehicleForm" (ngSubmit)="submit()" class="space-y-4">
+      <div class="grid grid-cols-2 gap-4">
+        <div>
+          <label class="block text-sm font-medium mb-1">Name</label>
+          <input formControlName="name" type="text" placeholder="e.g. Toyota Hilux" class="w-full border rounded px-3 py-2" />
+          <div *ngIf="vehicleForm.get('name')?.touched && vehicleForm.get('name')?.invalid" class="text-red-500 text-sm">
+            <div *ngIf="vehicleForm.get('name')?.errors?.['required']">Name is required.</div>
+            <div *ngIf="vehicleForm.get('name')?.errors?.['pattern']">Only letters and spaces allowed.</div>
+          </div>
+        </div>
+
+        <div>
+          <label class="block text-sm font-medium mb-1">Registration Number</label>
+          <input formControlName="registration_number" type="text" placeholder="e.g. ABC-1234 or XYZ123" class="w-full border rounded px-3 py-2" />
+          <div *ngIf="vehicleForm.get('registration_number')?.touched && vehicleForm.get('registration_number')?.invalid" class="text-red-500 text-sm">
+            <div *ngIf="vehicleForm.get('registration_number')?.errors?.['required']">Registration number is required.</div>
+            <div *ngIf="vehicleForm.get('registration_number')?.errors?.['pattern']">Use letters, numbers and dashes only (max 12).</div>
+          </div>
+        </div>
+
+        <div>
+          <label class="block text-sm font-medium mb-1 text-gray-600">Type</label>
+          <input formControlName="type" type="text" placeholder="e.g. Pickup, Sedan, SUV" class="w-full border rounded px-3 py-2" />
+          <div *ngIf="vehicleForm.get('type')?.touched && vehicleForm.get('type')?.invalid" class="text-red-500 text-sm">
+            <div *ngIf="vehicleForm.get('type')?.errors?.['required']">Type is required.</div>
+            <div *ngIf="vehicleForm.get('type')?.errors?.['pattern']">Only letters and spaces allowed.</div>
+          </div>
+        </div>
+
+        <div>
+          <label class="block text-sm font-medium mb-1">Color</label>
+          <input formControlName="color" type="text" placeholder="e.g. White, Black" class="w-full border rounded px-3 py-2" />
+          <div *ngIf="vehicleForm.get('color')?.touched && vehicleForm.get('color')?.invalid" class="text-red-500 text-sm">
+            <div *ngIf="vehicleForm.get('color')?.errors?.['required']">Color is required.</div>
+            <div *ngIf="vehicleForm.get('color')?.errors?.['pattern']">Only letters and spaces allowed.</div>
+          </div>
+        </div>
+
+        <div>
+          <label class="block text-sm font-medium mb-1">Make</label>
+          <input formControlName="make" type="text" placeholder="e.g. Toyota, Ford" class="w-full border rounded px-3 py-2" />
+          <div *ngIf="vehicleForm.get('make')?.touched && vehicleForm.get('make')?.invalid" class="text-red-500 text-sm">
+            <div *ngIf="vehicleForm.get('make')?.errors?.['required']">Make is required.</div>
+            <div *ngIf="vehicleForm.get('make')?.errors?.['pattern']">Only letters, numbers, spaces and hyphens allowed.</div>
+          </div>
+        </div>
+
+        <div>
+          <label class="block text-sm font-medium mb-1">Fuel Type</label>
+          <input formControlName="feulType" type="text" placeholder="petrol / diesel / electric / hybrid" class="w-full border rounded px-3 py-2" />
+          <div *ngIf="vehicleForm.get('feulType')?.touched && vehicleForm.get('feulType')?.invalid" class="text-red-500 text-sm">
+            <div *ngIf="vehicleForm.get('feulType')?.errors?.['required']">Fuel type is required.</div>
+            <div *ngIf="vehicleForm.get('feulType')?.errors?.['pattern']">Allowed: petrol, diesel, electric, hybrid.</div>
+          </div>
+        </div>
+
+        <div>
+          <label class="block text-sm font-medium mb-1">Transmission</label>
+          <input formControlName="Transmission" type="text" placeholder="manual / automatic" class="w-full border rounded px-3 py-2" />
+          <div *ngIf="vehicleForm.get('Transmission')?.touched && vehicleForm.get('Transmission')?.invalid" class="text-red-500 text-sm">
+            <div *ngIf="vehicleForm.get('Transmission')?.errors?.['required']">Transmission is required.</div>
+            <div *ngIf="vehicleForm.get('Transmission')?.errors?.['pattern']">Allowed: manual, automatic.</div>
+          </div>
+        </div>
+
+        <div>
+          <label class="block text-sm font-medium mb-1">Model</label>
+          <input formControlName="model" type="text" placeholder="e.g. 2018, Hilux 2.8" class="w-full border rounded px-3 py-2" />
+          <div *ngIf="vehicleForm.get('model')?.touched && vehicleForm.get('model')?.invalid" class="text-red-500 text-sm">
+            <div *ngIf="vehicleForm.get('model')?.errors?.['required']">Model is required.</div>
+            <div *ngIf="vehicleForm.get('model')?.errors?.['pattern']">Only letters, numbers, spaces and hyphens allowed.</div>
+          </div>
+        </div>
+
+        <div>
+          <label class="block text-sm font-medium mb-1">Assigned Users</label>
+          <input formControlName="assignedUsers" type="text" placeholder="Comma-separated user IDs e.g. 12, 34" class="w-full border rounded px-3 py-2" />
+          <div *ngIf="vehicleForm.get('assignedUsers')?.touched && vehicleForm.get('assignedUsers')?.invalid" class="text-red-500 text-sm">
+            <div *ngIf="vehicleForm.get('assignedUsers')?.errors?.['pattern']">Only digits, commas and spaces allowed.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="flex justify-end gap-3 mt-4">
+        <button type="button" (click)="closeModal()" class="px-4 py-2 bg-gray-200 rounded">Cancel</button>
+        <button type="submit" class="px-4 py-2 bg-seagreen text-white rounded flex items-center">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6 mr-2">
+  <path [attr.fill-rule]="'evenodd'" d="M6.32 2.577a49.255 49.255 0 0 1 11.36 0c1.497.174 2.57 1.46 2.57 2.93V21a.75.75 0 0 1-1.085.67L12 18.089l-7.165 3.583A.75.75 0 0 1 3.75 21V5.507c0-1.47 1.073-2.756 2.57-2.93Z" [attr.clip-rule]="'evenodd'" />
+        </svg>
+
+          Save</button>
+      </div>
+    </form>
+  </div>
+</div>

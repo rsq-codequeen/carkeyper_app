@@ -9,9 +9,17 @@
           <app-searchbar></app-searchbar>
           <app-button
             [buttonText]="'Add vehicle'"
-           
+           (buttonClick)="openAddUserModal()"
           ></app-button>
         </div>
+
+        <app-vehicleform
+        *ngIf="showModal"
+        [vehicle]="selectedVehicle"
+        (close)="closeModal()"
+          (vehicleAdded)="OnVehicleAdded($event)"
+          (vehicleUpdated)="onVehicleUpdated($event)"
+        ></app-vehicleform>
         <div
           class="border-2 border-[#d9d9d9] overflow-x-auto rounded-3xl shadow-md m-6"
         >
@@ -49,16 +57,16 @@
                <tr *ngFor="let vehicle of vehicles; let i = index" class="border-b">
                     <td class="px-6 py-4">{{ i + 1 }}</td>
                     <td class="px-6 py-4">{{ vehicle.name }}</td>
-                     <td class="px-6 py-4">{{ vehicle.reg }}</td>
+                     <td class="px-6 py-4">{{ vehicle.registration_number }}</td>
                     <td class="px-6 py-4">{{ vehicle.type }}</td>
                     <td class="px-6 py-4">{{ vehicle.color }}</td>
                     <td class="px-6 py-4">{{ vehicle.make }}</td>
-                    <td class="px-6 py-4">{{ vehicle.feul }}</td>
-                    <td class="px-6 py-4">{{ vehicle.transmission }}</td>
+                    <td class="px-6 py-4">{{ vehicle.feulType }}</td>
+                    <td class="px-6 py-4">{{ vehicle.Transmission }}</td>
                     <td class="px-6 py-4">{{ vehicle.model }}</td>
                    
                   <td class="px-6 py-4">
-                      <app-userform-dropdown></app-userform-dropdown>
+                     {{vehicle.assignedUsers}}
                   </td>
                 <td class="px-6 py-4">
                   <!-- edit icon -->

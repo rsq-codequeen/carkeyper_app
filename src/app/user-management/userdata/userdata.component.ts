@@ -1,10 +1,9 @@
-import { Component,ViewChild, inject } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SharedModule } from "../../shared/shared.module";
 // import { UserformComponent } from '../../shared/userform/userform.component';
 import { UserService } from '../../services/task.service';
 import { Subscription } from 'rxjs';
-import { Router } from '@angular/router';
 import { User } from '../user';
 // removed ReactiveForms imports
 // import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -30,7 +29,7 @@ export class UserdataComponent {
     // removed userForm
     showModal = false;
 
-    constructor(private router:Router) {}
+    constructor() {}
 
      ngOnInit(): void {
     // Subscribe to the observable to get the latest list of users
