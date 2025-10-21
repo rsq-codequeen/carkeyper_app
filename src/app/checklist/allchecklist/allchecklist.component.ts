@@ -34,6 +34,7 @@ export class AllchecklistComponent  implements OnInit{
   }
   onDeleteClick(index: number): void {
     this.checklists.splice(index,1);
+    console.log("deletinggg")
   }
   navigateToAddChecklist(){
     this.router.navigate(['/checklist/add-checklist'])

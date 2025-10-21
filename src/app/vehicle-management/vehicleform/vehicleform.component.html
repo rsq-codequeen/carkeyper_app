@@ -60,23 +60,33 @@
           </div>
         </div>
 
-        <div>
+         <div>
           <label class="block text-sm font-medium mb-1">Fuel Type</label>
-          <input formControlName="feulType" type="text" placeholder="petrol / diesel / electric / hybrid" class="w-full border rounded px-3 py-2" />
-          <div *ngIf="vehicleForm.get('feulType')?.touched && vehicleForm.get('feulType')?.invalid" class="text-red-500 text-sm">
-            <div *ngIf="vehicleForm.get('feulType')?.errors?.['required']">Fuel type is required.</div>
-            <div *ngIf="vehicleForm.get('feulType')?.errors?.['pattern']">Allowed: petrol, diesel, electric, hybrid.</div>
-          </div>
-        </div>
+          <select formControlName="feulType" class="w-full border rounded px-3 py-2 bg-white">
+             <option value="">Select fuel type</option>
+             <option value="petrol">Petrol</option>
+             <option value="diesel">Diesel</option>
+             <option value="electric">Electric</option>
+             <option value="hybrid">Hybrid</option>
+           </select>
+           <div *ngIf="vehicleForm.get('feulType')?.touched && vehicleForm.get('feulType')?.invalid" class="text-red-500 text-sm">
+             <div *ngIf="vehicleForm.get('feulType')?.errors?.['required']">Fuel type is required.</div>
+             <div *ngIf="vehicleForm.get('feulType')?.errors?.['pattern']">Allowed: petrol, diesel, electric, hybrid.</div>
+           </div>
+         </div>
 
         <div>
-          <label class="block text-sm font-medium mb-1">Transmission</label>
-          <input formControlName="Transmission" type="text" placeholder="manual / automatic" class="w-full border rounded px-3 py-2" />
-          <div *ngIf="vehicleForm.get('Transmission')?.touched && vehicleForm.get('Transmission')?.invalid" class="text-red-500 text-sm">
-            <div *ngIf="vehicleForm.get('Transmission')?.errors?.['required']">Transmission is required.</div>
-            <div *ngIf="vehicleForm.get('Transmission')?.errors?.['pattern']">Allowed: manual, automatic.</div>
-          </div>
-        </div>
+           <label class="block text-sm font-medium mb-1">Transmission</label>
+           <select formControlName="Transmission" class="w-full border rounded px-3 py-2 bg-white">
+              <option value="">Select transmission</option>
+              <option value="manual">Manual</option>
+              <option value="automatic">Automatic</option>
+            </select>
+            <div *ngIf="vehicleForm.get('Transmission')?.touched && vehicleForm.get('Transmission')?.invalid" class="text-red-500 text-sm">
+             <div *ngIf="vehicleForm.get('Transmission')?.errors?.['required']">Transmission is required.</div>
+             <div *ngIf="vehicleForm.get('Transmission')?.errors?.['pattern']">Allowed: manual, automatic.</div>
+           </div>
+         </div>
 
         <div>
           <label class="block text-sm font-medium mb-1">Model</label>

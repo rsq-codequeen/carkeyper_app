@@ -39,6 +39,7 @@ export class AddchecklistComponent {
     // 🚨 Use the splice() method to remove the item at the given index
     this.checklistItems.splice(index, 1);
     this.editIndex = null; 
+    console.log("deleting")
   }
   startEdit(index: number): void {
     this.editIndex = index;
@@ -53,6 +54,7 @@ export class AddchecklistComponent {
       this.checklistItems[this.editIndex] = this.editableContent;
     }
     this.editIndex = null; // Exit edit mode
+    console.log("editing")
   }
   resetForm(){
       this.checklist.checklistTitle=''

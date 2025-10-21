@@ -68,8 +68,8 @@ export class VehicledataComponent {
   onVehicleUpdated(updatedVehicle: Vehicle) {
       if (this.selectedVehicle) {
         // call service editUser (task.service has editUser(original, updated))
-        if (typeof (this.selectedVehicle as any).editUser === 'function') {
-          (this.vehicleService as any).editUser(this.selectedVehicle, updatedVehicle);
+        if (typeof (this.selectedVehicle as any).editVehicle === 'function') {
+          (this.vehicleService as any).editVehicle(this.selectedVehicle, updatedVehicle);
         } else {
           // fallback: replace locally by id or reference
           const idx = this.vehicles.findIndex(u => (u.id != null && this.selectedVehicle?.id != null) ? u.id === this.selectedVehicle.id : u === this.selectedVehicle);
