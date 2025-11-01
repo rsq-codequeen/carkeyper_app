@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { UserdataComponent } from './userdata/userdata.component';
-import { UserformComponent } from './userform/userform.component';
 
 const routes: Routes = [
   { path: 'userdata', component:UserdataComponent },

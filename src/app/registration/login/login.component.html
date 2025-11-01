@@ -14,9 +14,10 @@
             class="p-2 text-center font-bold text-4xl bg-gradient-to-b from-[#006767] via-[#04a1a1] to-[#019090] text-transparent bg-clip-text"
           >
             Login
-          </h2>
-          <form>
-            <div class="field m-5">
+          </h2 >
+          <form (ngSubmit)="onSubmit()">
+            <div class=" field m-5">
+
               <label for="email" class="block font-bold text-grey my-1 mx-2"
                 >Email</label
               >
@@ -36,6 +37,10 @@
               </svg>
               <input
                 type="email"
+                id="email"
+                name="email"
+                [(ngModel)]="credentials.email"
+                required
                 placeholder="Enter your email"
                 class="px-3 pl-8 py-1 w-96 h-12 border-2 border-gray-300 rounded-xl"
               />
@@ -61,13 +66,21 @@
 
               <input
                 type="password"
+                id="password"
+                name="password"
+                [(ngModel)]="credentials.password"
+                required
                 placeholder="Enter your password"
                 class="px-3 pl-8 py-1 w-96 h-12 border-2 border-gray-300 rounded-xl"
               />
             </div>
+            <div *ngIf="errorMessage" class="error-message text-center text-red-600">
+              {{ errorMessage }}
+             </div>
             <div class="text-center">
               <button
                 class="py-3 px-24 rounded-2xl bg-gradient-to-r from-[#006666] via-[#088f8f,#009090] to-[#006666] text-white font-semibold"
+                [disabled]="!credentials.email || !credentials.password"
               >
                 Login
               </button>

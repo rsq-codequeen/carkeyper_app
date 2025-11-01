@@ -1,5 +1,5 @@
-import { Component,  OnInit} from '@angular/core';
-import { RouterOutlet, Router } from '@angular/router';
+import { Component} from '@angular/core';
+import { RouterOutlet } from '@angular/router';
 import 'flowbite';
 
 @Component({
@@ -11,5 +11,6 @@ import 'flowbite';
 })
 export class AppComponent {
   title = 'greenkeyper_app';
+
    
 }

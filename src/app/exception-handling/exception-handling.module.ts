@@ -1,14 +1,9 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ExceptionHandlingModule } from '../exception-handling.module';
-
-
+import { ExceptionHandlingRoutingModule } from './exception-handling-routing.module';
 
 @NgModule({
   declarations: [],
-  imports: [
-    CommonModule,
-    ExceptionHandlingModule
-  ]
+  imports: [CommonModule, ExceptionHandlingRoutingModule]
 })
-export class ExceptionHandlingModule { }
+export class ExceptionHandlingModule {}
