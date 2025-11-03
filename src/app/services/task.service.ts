@@ -4,8 +4,7 @@ import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { Checklist } from '../checklist/checklist';
 import { catchError } from 'rxjs/operators';
-import { BehaviorSubject } from 'rxjs';
-import { User } from '../user-management/user';
+
 
 @Injectable({
   providedIn: 'root'
@@ -32,50 +31,14 @@ export class UserService {
     }
   ];
 
-  // start with empty list
-  private usersSubject = new BehaviorSubject<User[]>([]);
 
   constructor(private httpClient: HttpClient) {}
 
-  // components subscribe to this
-  getUsers(): Observable<User[]> {
-    return this.usersSubject.asObservable();
-  }
 
-  // add a user and emit updated list
-  addUser(user: User) {
-    const current = this.usersSubject.value || [];
-    const newUser: User = {
-      ...user,
-      id: user.id ?? Date.now(),
-      joinedDate: user.joinedDate ?? new Date()
-    };
-    this.usersSubject.next([newUser, ...current]);
-  }
-
-  // delete a user (by id when available)
-  deleteUser(user: User) {
-    const current = this.usersSubject.value || [];
-    const filtered = current.filter(u =>
-      (u.id != null && user.id != null) ? u.id !== user.id : u !== user
-    );
-    this.usersSubject.next(filtered);
-  }
-
-  // replace/edit a user
-  editUser(originalUser: User, updatedUser: User) {
-    const current = this.usersSubject.value || [];
-    const index = current.findIndex(u => (u.id != null && originalUser.id != null) ? u.id === originalUser.id : u === originalUser);
-    if (index !== -1) {
-      const copy = [...current];
-      copy[index] = { ...updatedUser, id: originalUser.id ?? updatedUser.id };
-      this.usersSubject.next(copy);
-    }
-  }
 
   // checklist logic unchanged
   saveChecklist(checklist: Checklist): Observable<Checklist> {
-    const url = 'http://localhost:8000/checklist';
+    const url = 'http://localhost:8080/checklist';
     console.log('Sending request to:', url);
     return this.httpClient.post<Checklist>(url, checklist).pipe(
       catchError(error => {
