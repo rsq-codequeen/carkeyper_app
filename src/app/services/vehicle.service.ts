@@ -1,54 +1,37 @@
 // src/app/services/vehicle.service.ts
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
+import {  Observable } from 'rxjs';
 import { Vehicle } from '../vehicle-management/vehicle';
-
+import { HttpClient } from '@angular/common/http';
+import { API_URL } from '../app.constants';
 @Injectable({
   providedIn: 'root'
 })
 export class VehicleService {
-  private vehiclesSubject = new BehaviorSubject<Vehicle[]>([]);
+  private VehicleUrl = `${API_URL}/vehicles`;
+  constructor(private http: HttpClient) { }
+
+  // private vehiclesSubject = new BehaviorSubject<Vehicle[]>([]);
 
   // expose read-only observable
   getVehicles(): Observable<Vehicle[]> {
-    return this.vehiclesSubject.asObservable();
+    return this.http.get<Vehicle[]>(this.VehicleUrl);
   }
 
   // add a vehicle and emit updated list
-  addVehicle(vehicle: Vehicle) {
-    const current = this.vehiclesSubject.value || [];
-    const newVehicle: Vehicle = {
-      ...vehicle,
-      id: vehicle.id ?? Date.now(),
-      createdAt: (vehicle as any).createdAt ?? new Date()
-    } as Vehicle;
-    this.vehiclesSubject.next([newVehicle, ...current]);
+  addVehicle(vehicle: Vehicle): Observable<any> {
+    return this.http.post(this.VehicleUrl, vehicle);
   }
 
-  // edit/replace a vehicle (matches by id when available)
-  editVehicle(originalVehicle: Vehicle, updatedVehicle: Vehicle) {
-    const current = this.vehiclesSubject.value || [];
-    const index = current.findIndex(v =>
-      (v.id != null && originalVehicle.id != null) ? v.id === originalVehicle.id : v === originalVehicle
-    );
-    if (index !== -1) {
-      const copy = [...current];
-      copy[index] = { ...updatedVehicle, id: originalVehicle.id ?? updatedVehicle.id, updatedAt: new Date() } as Vehicle;
-      this.vehiclesSubject.next(copy);
-    }
-  }
+  editVehicle(vehicleId: number, updatedVehicleData: Partial<Vehicle>): Observable<any> {
+    return this.http.put(`${this.VehicleUrl}/${vehicleId}`, updatedVehicleData);
+  }
+  
 
   // delete a vehicle (by id when available)
-  deleteVehicle(vehicleToDelete: Vehicle) {
-    const current = this.vehiclesSubject.value || [];
-    const filtered = current.filter(v =>
-      (v.id != null && vehicleToDelete.id != null) ? v.id !== vehicleToDelete.id : v !== vehicleToDelete
-    );
-    this.vehiclesSubject.next(filtered);
-  }
+  deleteVehicle(vehicleId: number): Observable<any> {
+    return this.http.delete(`${this.VehicleUrl}/${vehicleId}`);
+  }
 
-  // optional: seed initial list
-  setInitialVehicles(vehicles: Vehicle[]) {
-    this.vehiclesSubject.next(vehicles);
-  }
+  
 }

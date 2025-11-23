@@ -1,8 +1,8 @@
-import { Component, inject } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SharedModule } from "../../shared/shared.module";
 import { VehicleService } from '../../services/vehicle.service'; 
-import { Subscription } from 'rxjs';
+
 // import { VehicleformComponent } from '../../shared/vehicleform/vehicleform.component';
 import { Vehicle } from '../vehicle';
 import { VehicleformComponent } from "../vehicleform/vehicleform.component";
@@ -15,71 +15,78 @@ import { VehicleformComponent } from "../vehicleform/vehicleform.component";
   templateUrl: './vehicledata.component.html',
   styleUrl: './vehicledata.component.css'
 })
-export class VehicledataComponent {
-  selectedVehicle?:Vehicle
+export class VehicledataComponent implements OnInit{
+      
    currentDate = new Date(); 
-      vehicles:any[]=[]
-      private usersSubscription!: Subscription;
-      private vehicleService = inject(VehicleService);
-
-      showModal = false;
-      constructor() {}
+      vehicles: Vehicle[] = [];
+      selectedVehicle: Vehicle | null = null;
+      showModal: boolean = false;
+      isLoading: boolean = true;
+      
+      constructor(private vehicleService: VehicleService) { }
   
       ngOnInit(): void {
-        // Subscribe to the correct observable from the new service
-        this.usersSubscription = this.vehicleService.getVehicles().subscribe(
-            (latestVehicles) => {
-                this.vehicles = latestVehicles; // Note: you might want to rename this to `vehicles`
-                console.log('Received new vehicle list:', this.vehicles);
+        this.loadVehicles(); // Load vehicles on component initialization
+    }
+    // --- Load Vehicles Method
+    loadVehicles(): void {
+        this.isLoading = true;
+        this.vehicleService.getVehicles().subscribe({
+            next: (data) => {
+                this.vehicles = data; // Set the list from the API response
+                this.isLoading = false;
+            },
+            error: (err) => {
+                console.error('Failed to load vehicles:', err);
+                this.isLoading = false;
+                // Add error handling feedback here (e.g., a message)
             }
-        );
+        });
     }
-     ngOnDestroy(): void {
-      if (this.usersSubscription) {
-        this.usersSubscription.unsubscribe();
-      }
-    }
+    
+     
    
-    onDelete(vehicle: any) {
-        this.vehicleService.deleteVehicle(vehicle); 
-    }
-
-      openAddUserModal(){
-    this.selectedVehicle = undefined;
-    this.showModal = true;
-  }
-   openEditModal(vehicle: Vehicle) {
-       this.selectedVehicle = vehicle;
-       this.showModal = true;
-     }
-     closeModal() {
-    this.showModal = false;
-  }
-
-  OnVehicleAdded(newVehicle:any){
-    if(typeof(this.vehicleService as any).addVehicle==='function'){
-      (this.vehicleService as any).addVehicle(newVehicle);
-    } else{
-      this.vehicles=[newVehicle,...this.vehicles];
-    }
-    this.closeModal()
-  }
-
-  onVehicleUpdated(updatedVehicle: Vehicle) {
-      if (this.selectedVehicle) {
-        // call service editUser (task.service has editUser(original, updated))
-        if (typeof (this.selectedVehicle as any).editVehicle === 'function') {
-          (this.vehicleService as any).editVehicle(this.selectedVehicle, updatedVehicle);
-        } else {
-          // fallback: replace locally by id or reference
-          const idx = this.vehicles.findIndex(u => (u.id != null && this.selectedVehicle?.id != null) ? u.id === this.selectedVehicle.id : u === this.selectedVehicle);
-          if (idx !== -1) {
-            this.vehicles[idx] = { ...updatedVehicle, id: this.selectedVehicle.id ?? updatedVehicle.id };
-          }
+   onDelete(vehicle: Vehicle): void {
+        // Use vehicle_id (or whatever the primary key field is named in Vehicle interface)
+        const vehicleId = (vehicle as any).vehicle_id || vehicle.id; 
+        
+        if (!vehicleId || !confirm(`Confirm hard delete for ${vehicle.registration_number}?`)) {
+            return;
         }
-      }
-      this.selectedVehicle = undefined;
-      this.closeModal();
+
+        this.vehicleService.deleteVehicle(vehicleId).subscribe({
+            next: () => {
+                // Optimistically update the list without a full reload
+                this.vehicles = this.vehicles.filter(v => (v as any).vehicle_id !== vehicleId);
+            },
+            error: (err) => {
+                console.error('API Error deleting vehicle:', err);
+                alert(`Deletion failed: ${err.error?.message || 'Server error'}`);
+            }
+        });
+    }
+
+     openAddUserModal(): void { // I assume this should be openAddVehicleModal
+        this.selectedVehicle = null;
+        this.showModal = true;
+    }
+   openEditModal(vehicle: Vehicle): void {
+        this.selectedVehicle = vehicle;
+        this.showModal = true;
+    }
+     closeModal(): void {
+        this.showModal = false;
+        this.selectedVehicle = null;
+    }
+
+  OnVehicleAdded(newVehicle: Vehicle): void {
+        this.loadVehicles(); 
+        this.closeModal();
+    }
+
+  onVehicleUpdated(updatedVehicle: Vehicle): void {
+        this.loadVehicles(); 
+        this.closeModal();
     }
 }
 

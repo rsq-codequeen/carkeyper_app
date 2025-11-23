@@ -27,7 +27,7 @@
             </thead>
             <tbody>
                 <ng-container *ngIf="checklists.length>0 else noChecklists">
-                  <tr *ngFor="let checklist of checklists; let i=index">
+                  <tr *ngFor="let checklist of checklists; let i=index" class="border-b">
                     <td class="px-6 py-4">{{ i + 1 }}</td>
                     <td class="px-6 py-4">{{checklist.checklistTitle}}</td>
                     <td class="px-6 py-4">{{checklist.checklistTime}}</td>

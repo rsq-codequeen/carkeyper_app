@@ -1,13 +1,16 @@
-import { Component ,inject} from '@angular/core';
+import { Component ,inject,OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SharedModule } from '../../shared/shared.module';
 import { TextEditorComponent } from '../text-editor/text-editor.component';
 import { FormsModule } from '@angular/forms';
 import { CancelButtonComponent } from "../../shared/cancel-button/cancel-button.component";
 import { Checklist } from '../checklist';
-import { UserService } from '../../services/task.service';
+import { TaskService } from '../../services/task.service';
 import { HttpClientModule } from '@angular/common/http';
 import { Router } from '@angular/router';
+import { VehicleService } from '../../services/vehicle.service';
+import { Vehicle } from '../../vehicle-management/vehicle';
+
 @Component({
   selector: 'app-addchecklist',
   standalone: true,
@@ -22,7 +25,8 @@ import { Router } from '@angular/router';
   templateUrl: './addchecklist.component.html',
   styleUrl: './addchecklist.component.css'
 })
-export class AddchecklistComponent {
+export class AddchecklistComponent implements OnInit{
+  vehicles: Vehicle[] = [];
  checklist :Checklist={
     checklistTitle:'',
     checklistTime:'',
@@ -64,9 +68,26 @@ export class AddchecklistComponent {
 
       this.checklistItems=[]
   }
-  constructor (private checklistService:UserService,
+  constructor (private checklistService:TaskService,
+                private vehicleService: VehicleService,
                 private router: Router 
   ){
+  }
+  ngOnInit(): void {
+    this.fetchVehicles();
+  }
+  fetchVehicles(): void {
+    // 4. Call the VehicleService's existing API method
+    this.vehicleService.getVehicles().subscribe({
+      next: (data) => {
+        this.vehicles = data; // Store the array of vehicle objects
+        console.log('Fetched vehicles for dropdown:', this.vehicles);
+      },
+      error: (err) => {
+        console.error('Error fetching vehicles:', err);
+        // Handle error: e.g., show a message to the user
+      }
+    });
   }
   saveChecklistData() {
   if (this.checklist.checklistTitle === '' || this.checklist.checklistTime === '') {

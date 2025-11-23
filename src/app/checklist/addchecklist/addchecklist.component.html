@@ -33,12 +33,12 @@
                 class="text-seagreen text-md font-semibold mt-2"
                 >Vehicle Selection</label
               >
-              <input
-            type="text"
-            placeholder="Select Vehicle"
-            class="h-8 w-full border-2 border-[#BABABA] rounded-lg placeholder-gray-500"
-            [(ngModel)]="checklist.assignedVehicle"
-          />
+              <select  class="w-full border rounded px-3 py-2" [(ngModel)]="checklist.assignedVehicle">
+                <option value="" disabled> Select a Vehicle </option>
+                <option *ngFor="let vehicle of vehicles" [value]="vehicle.make">{{vehicle.make}}</option>
+                
+              </select>
+              
             </div>
             <div class="flex flex-col w-1/2">
               <label
@@ -47,12 +47,12 @@
                 >Checklist Time</label
                 
               >
-              <input
-            type="text"
-            placeholder="Checklist Time"
-            class="h-8 w-full border-2 border-[#BABABA] rounded-lg placeholder-gray-500"
-           [(ngModel)]="checklist.checklistTime"
-          />
+              <select  class="w-full border rounded px-3 py-2" [(ngModel)]="checklist.checklistTime">
+                <option value="admin">Beginning of day</option>
+                <option value="mechanic">End of day</option>
+                
+              </select>
+             
             </div>
           </div>
           <!-- line  -->

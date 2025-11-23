@@ -1,14 +1,13 @@
 export interface Vehicle {
   id?: number;
-  name: string;
   registration_number: string;
   type?: string;
   color?: string;
   role?: string;
   make?: string;
-  feulType?:string;
-  Transmission?:string;
+  fueltype?:string;
+  transmission?:string;
   model?:string
-  assignedUsers?: string;
+  // assignedUsers?: string;
   
 }

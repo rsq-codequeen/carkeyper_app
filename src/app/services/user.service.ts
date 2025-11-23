@@ -1,8 +1,7 @@
 import { Injectable } from '@angular/core';
 import { API_URL } from '../app.constants';
-import { Observable, of } from 'rxjs';
+import { Observable} from 'rxjs';
 import { HttpClient } from '@angular/common/http';
-import { BehaviorSubject } from 'rxjs';
 import { User } from '../user-management/user';
 @Injectable({
   providedIn: 'root'

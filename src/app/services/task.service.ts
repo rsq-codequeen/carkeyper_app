@@ -5,11 +5,11 @@ import { Observable, of } from 'rxjs';
 import { Checklist } from '../checklist/checklist';
 import { catchError } from 'rxjs/operators';
 
-
 @Injectable({
   providedIn: 'root'
 })
-export class UserService {
+export class TaskService {
+  
   private dummyChecklists: Checklist[] = [
     {
       checklistTitle: 'Daily Safety Inspection',

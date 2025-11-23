@@ -2,7 +2,7 @@
 import { Component, inject, OnDestroy, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SharedModule } from '../../shared/shared.module';
-import { UserService } from '../../services/task.service';
+import { TaskService } from '../../services/task.service';
 import { Checklist } from '../checklist';
 import { Router } from '@angular/router';
 
@@ -16,12 +16,12 @@ import { Router } from '@angular/router';
 })
 export class AllchecklistComponent  implements OnInit{
   checklists: Checklist[] = [];
-  constructor(private userService: UserService, private router:Router) {}
+  constructor(private taskService: TaskService, private router:Router) {}
   ngOnInit(): void {
        this.getChecklists();
   }
   getChecklists():void{
-    this.userService.getChecklist().subscribe(
+    this.taskService.getChecklist().subscribe(
       (data:Checklist[])=>{
         this.checklists=data
          console.log('Dummy data loaded successfully:', this.checklists);

@@ -29,21 +29,20 @@
             >
               <tr>
                 <th scope="col" class="px-6 py-3">#</th>
-                <th scope="col" class="px-6 py-3">Vehicle Name</th>
                 <th scope="col" class="px-6 py-3">Registration No.</th>
                 <th scope="col" class="px-6 py-3">Type</th>
                 <th scope="col" class="px-6 py-3">Color</th>
                 <th scope="col" class="px-6 py-3">Make</th>
                 <th scope="col" class="px-6 py-3">Fuel Type</th>
-                <th scope="col" class="px-6 py-3">Transmission</th>
+                <th scope="col" class="px-6 py-3">transmission</th>
                 <th scope="col" class="px-6 py-3">Model</th>
-                <th scope="col" class="px-6 py-3">Assigned Users</th>
+                <!-- <th scope="col" class="px-6 py-3">Assigned Users</th> -->
                 <th scope="col" class="px-6 py-3">Actions</th>
               </tr>
             </thead>
             <tbody>
               <tr *ngIf="vehicles.length===0">
-                <td></td>
+                <!-- <td></td> -->
                 <td></td>
                 <td></td>
                 <td></td>
@@ -56,18 +55,17 @@
               </tr>
                <tr *ngFor="let vehicle of vehicles; let i = index" class="border-b">
                     <td class="px-6 py-4">{{ i + 1 }}</td>
-                    <td class="px-6 py-4">{{ vehicle.name }}</td>
                      <td class="px-6 py-4">{{ vehicle.registration_number }}</td>
                     <td class="px-6 py-4">{{ vehicle.type }}</td>
                     <td class="px-6 py-4">{{ vehicle.color }}</td>
                     <td class="px-6 py-4">{{ vehicle.make }}</td>
-                    <td class="px-6 py-4">{{ vehicle.feulType }}</td>
-                    <td class="px-6 py-4">{{ vehicle.Transmission }}</td>
+                    <td class="px-6 py-4">{{ vehicle.fueltype }}</td>
+                    <td class="px-6 py-4">{{ vehicle.transmission }}</td>
                     <td class="px-6 py-4">{{ vehicle.model }}</td>
                    
-                  <td class="px-6 py-4">
+                  <!-- <td class="px-6 py-4">
                      {{vehicle.assignedUsers}}
-                  </td>
+                  </td> -->
                 <td class="px-6 py-4">
                   <!-- edit icon -->
                   <svg
