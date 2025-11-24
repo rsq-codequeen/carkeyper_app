@@ -6,6 +6,9 @@ import { AllchecklistComponent } from './allchecklist/allchecklist.component';
 const routes: Routes = [
   {path:'add-checklist', component:AddchecklistComponent},
   {path:'All-checklist',component:AllchecklistComponent},
+  { 
+        path: 'edit/:id', component: AddchecklistComponent 
+    },
   {path:'', component:AddchecklistComponent}
 ];
 

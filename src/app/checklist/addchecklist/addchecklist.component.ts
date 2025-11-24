@@ -1,13 +1,13 @@
-import { Component ,inject,OnInit } from '@angular/core';
+import { Component ,OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SharedModule } from '../../shared/shared.module';
 import { TextEditorComponent } from '../text-editor/text-editor.component';
 import { FormsModule } from '@angular/forms';
 import { CancelButtonComponent } from "../../shared/cancel-button/cancel-button.component";
-import { Checklist } from '../checklist';
+import { Checklist, ChecklistFullDetails, ChecklistPayload } from '.././checklist'; 
 import { TaskService } from '../../services/task.service';
 import { HttpClientModule } from '@angular/common/http';
-import { Router } from '@angular/router';
+import { Router,ActivatedRoute } from '@angular/router';
 import { VehicleService } from '../../services/vehicle.service';
 import { Vehicle } from '../../vehicle-management/vehicle';
 
@@ -26,6 +26,8 @@ import { Vehicle } from '../../vehicle-management/vehicle';
   styleUrl: './addchecklist.component.css'
 })
 export class AddchecklistComponent implements OnInit{
+  isEditMode: boolean = false; 
+    currentTemplateId: number | null = null;
   vehicles: Vehicle[] = [];
  checklist :Checklist={
     checklistTitle:'',
@@ -40,24 +42,21 @@ export class AddchecklistComponent implements OnInit{
   this.checklistItems.push(content);
   }
    onDeleteClick(index: number): void {
-    // 🚨 Use the splice() method to remove the item at the given index
     this.checklistItems.splice(index, 1);
     this.editIndex = null; 
     console.log("deleting")
   }
   startEdit(index: number): void {
     this.editIndex = index;
-    // 🚨 Extract plain text from the HTML and assign it to the temporary variable
     const tempDiv = document.createElement('div');
     tempDiv.innerHTML = this.checklistItems[index];
     this.editableContent = tempDiv.textContent || tempDiv.innerText || '';
   }
   saveEdit(): void {
     if (this.editIndex !== null) {
-      // 🚨 Update the original array item with the new plain text content
       this.checklistItems[this.editIndex] = this.editableContent;
     }
-    this.editIndex = null; // Exit edit mode
+    this.editIndex = null; 
     console.log("editing")
   }
   resetForm(){
@@ -70,43 +69,92 @@ export class AddchecklistComponent implements OnInit{
   }
   constructor (private checklistService:TaskService,
                 private vehicleService: VehicleService,
-                private router: Router 
+                private router: Router ,
+                private route: ActivatedRoute
   ){
   }
   ngOnInit(): void {
     this.fetchVehicles();
+    this.route.paramMap.subscribe(params => {
+            const id = params.get('id');
+            if (id) {
+                this.isEditMode = true;
+                this.currentTemplateId = +id; // Convert string to number
+                this.loadChecklistForEdit(this.currentTemplateId); 
+            }
+        });
   }
+  loadChecklistForEdit(id: number): void {
+        this.checklistService.getChecklistById(id).subscribe({
+            next: (data: ChecklistFullDetails) => {
+                // Map the API structure (title, description) back to the form structure (checklistTitle, checklistDesc)
+                this.checklist.checklistTitle = data.title;
+                this.checklist.checklistDesc = data.description;
+                this.checklist.checklistTime = data.checklist_time;
+                this.checklist.assignedVehicle = data.assigned_vehicle;
+                
+                // Map the array of objects back to the simple string array for your template
+                this.checklistItems = data.items.map(item => item.text);
+                console.log('Checklist data loaded for editing:', data);
+            },
+            error: (err) => {
+                console.error('Failed to load checklist for editing:', err);
+                alert('Failed to load checklist data. Returning to list.');
+                this.router.navigate(['checklist/All-checklist']);
+            }
+        });
+    }
+    
   fetchVehicles(): void {
-    // 4. Call the VehicleService's existing API method
+   
     this.vehicleService.getVehicles().subscribe({
       next: (data) => {
-        this.vehicles = data; // Store the array of vehicle objects
+        this.vehicles = data;
         console.log('Fetched vehicles for dropdown:', this.vehicles);
       },
       error: (err) => {
         console.error('Error fetching vehicles:', err);
-        // Handle error: e.g., show a message to the user
+
       }
     });
   }
-  saveChecklistData() {
-  if (this.checklist.checklistTitle === '' || this.checklist.checklistTime === '') {
-    alert('Please fill title and time');
-    return false;
-  }
-  
-  this.checklistService.saveChecklist(this.checklist).subscribe({
-    next: (res) => {
-      console.log('Data saved successfully:', res);
-      alert('Checklist has been saved successfully!');
-      this.router.navigate(['checklist/All-checklist']); 
-    },
-    error: (err) => {
-      console.error('Failed to save data:', err);
-      // You can add an alert for the user here
-      alert('Failed to save checklist. Please try again.');
+ saveChecklistData(): boolean {
+        // ... (existing validation) ...
+
+        // 1. Construct the Checklist Payload (structure is the same for POST/PUT)
+        const payload: ChecklistPayload = {
+            title: this.checklist.checklistTitle.trim(), 
+            description: this.checklist.checklistDesc.trim(),
+            checklist_time: this.checklist.checklistTime, 
+            assigned_vehicle: this.checklist.assignedVehicle,
+            items: this.checklistItems
+                .filter(itemText => itemText.trim().length > 0)
+                .map(itemText => ({
+                    text: itemText,
+                    requires_ok: 1
+                }))
+        };
+        
+        // 2. Determine which service method to call based on mode
+        const saveObservable = this.isEditMode && this.currentTemplateId
+            ? this.checklistService.updateChecklist(this.currentTemplateId, payload) // ⬅️ PUT call
+            : this.checklistService.saveChecklist(payload); // ⬅️ POST call
+
+        // 3. Subscribe to the chosen observable
+        saveObservable.subscribe({
+            next: (res) => {
+                const message = this.isEditMode ? 'Checklist has been updated successfully!' : 'Checklist has been saved successfully!';
+                console.log(this.isEditMode ? 'Data updated successfully:' : 'Data saved successfully:', res);
+                alert(message);
+                this.router.navigate(['checklist/All-checklist']); 
+                this.resetForm();
+            },
+            error: (err) => {
+                const errorMsg = err.error?.message || 'Failed to save/update checklist due to a network or server error.';
+                console.error('Failed to save/update data:', err);
+                alert(`Error: ${errorMsg}`);
+            }
+        });
+        return true;
     }
-  });
-  return true;
-}
 }

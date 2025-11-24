@@ -1,0 +1,194 @@
+<div class="flex flex-col w-full h-screen">
+  <app-navbar [message]="'Home'" class="flex-none"></app-navbar>
+  <div class="flex flex-1">
+    <app-sidebar class="w-14"></app-sidebar>
+  </div>
+  <main class="flex-1 bg-gray-50">
+    <!-- 2. Hero Section (from original index.html) -->
+    <section class="bg-gradient-to-br from-white to-slate-100 py-20 sm:py-32">
+  <div class="container mx-auto px-4 sm:px-6 lg:px-8 text-center max-w-4xl">
+    <div class="flex justify-center m-0">
+      <img src="../../../assets/CarKeyper.png" alt="" class="m-0 w-44 sm:w-56 md:w-64 lg:w-72" />
+    </div>
+    <h1 class="mt-0 text-4xl sm:text-5xl lg:text-7xl font-extrabold text-gray-900 leading-tight mb-6">
+      CarKeyper<span class="text-seafoam">Admin Control</span>
+    </h1>
+    <p class="text-lg sm:text-xl text-gray-600 mb-10 max-w-2xl mx-auto">
+      Focuses on "Centralized Fleet Operations Control,"
+    </p>
+    <div class="flex flex-col sm:flex-row justify-center space-y-4 sm:space-y-0 sm:space-x-4">
+      <a href="#" class="px-8 py-3 rounded-xl text-white font-bold shadow-lg bg-gradient-to-r from-[#006666] to-[#04a1a1] hover:shadow-xl transition duration-300 transform hover:scale-105">
+        User Management
+      </a>
+      <a href="#" class="px-8 py-3 rounded-xl text-seafoam font-bold border-2 border-seafoam bg-white hover:bg-seafoam transition duration-300 transform hover:scale-105">
+        Vehicle Management
+      </a>
+    </div>
+  </div>
+</section>
+
+
+   
+    <section class="ml-20 py-16 sm:py-24 bg-white">
+      <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+        
+        <h2 class="text-4xl font-extrabold text-center text-gray-900 mb-12">
+          Core Administrative Modules
+        </h2>
+        <!-- Feature Cards Grid -->
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <!-- Feature Card 1 -->
+          <div
+            class=" p-6 rounded-2xl shadow-lg border-t-4 border-seafoam transition duration-500 hover:shadow-xl hover:translate-y-[-4px]"
+          >
+            <div class="text-seafoam mb-4">
+              <svg
+                class="w-10 h-10"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5l2 2h3a2 2 0 012 2v10a2 2 0 01-2 2z"
+                ></path>
+              </svg>
+            </div>
+            <h3 class="text-xl font-bold mb-3 text-gray-800">
+              Real-Time Tracking
+            </h3>
+            <p class="text-gray-600">
+              Know exactly where your vehicles are 24/7 with accurate GPS
+              location services.
+            </p>
+          </div>
+
+          <!-- Feature Card 2 -->
+          <div
+            class="p-6 rounded-2xl shadow-lg border-t-4 border-seafoam transition duration-500 hover:shadow-xl hover:translate-y-[-4px]"
+          >
+            <div class="text-seafoam mb-4">
+              <svg
+                class="w-10 h-10"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
+                ></path>
+              </svg>
+            </div>
+            <h3 class="text-xl font-bold mb-3 text-gray-800">
+              Compliance & Audit Logs
+            </h3>
+            <p class="text-gray-600">
+              Never miss a service appointment with automated reminders for oil
+              changes, inspections, and repairs.
+            </p>
+          </div>
+
+          <div
+            class="bg-white p-6 rounded-2xl shadow-lg border-t-4 border-seafoam transition duration-500 hover:shadow-xl hover:translate-y-[-4px]"
+          >
+            <div class="text-seafoam mb-4">
+              <svg
+                class="w-10 h-10"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"
+                ></path>
+              </svg>
+            </div>
+            <h3 class="text-xl font-bold mb-3 text-gray-800">
+              System Configuration
+            </h3>
+            <p class="text-gray-600">
+              Keep all vehicle maintenance, fuel records, and documents safely
+              stored in the cloud.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section class="ml-20 py-16 sm:py-24">
+        <h2 class="text-4xl font-extrabold text-center text-gray-900 mb-12">Benifits</h2>
+      <div class="container mx-auto px-4 sm:px-6 lg:px-8 flex gap-8">
+        
+        <div class="flip-card">
+          <div class="flip-card-inner">
+            <div class="flip-card-front1">
+              <p class="title">Optimized Fuel Consumption</p>
+              
+            </div>
+            <div class="flip-card-back1">
+              <p class="title">Administrative Impact</p>
+              <p>Administrators can identify and train drivers engaging in wasteful habits, leading to significant fuel cost savings.</p>
+            </div>
+          </div>
+        </div>
+         <div class="flip-card">
+          <div class="flip-card-inner">
+            <div class="flip-card-front2">
+              <p class="title">Reduced Maintenance Costs</p>
+            </div>
+            <div class="flip-card-back2">
+              <p class="title">Administrative Impact</p>
+              <p>Decreases vehicle downtime and extends the useful life of assets, directly reducing the Total Cost of Ownership (TCO).</p>
+            </div>
+          </div>
+        </div>
+         <div class="flip-card">
+          <div class="flip-card-inner">
+            <div class="flip-card-front3">
+              <p class="title">Streamlined Inventory Management</p>
+            </div>
+            <div class="flip-card-back3">
+              <p class="title">Administrative Impact</p>
+              <p>Simplifies auditing and improves forecasting for parts procurement, ensuring resources are not tied up in unnecessary stock.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    
+    <!-- 4. Footer (from original index.html) -->
+    <footer class="bg-gray-800 text-white py-10">
+      <div class="container mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        <div class="mb-6">
+          <a href="#" class="text-xl font-extrabold text-white">CarKeyper</a>
+        </div>
+
+        <!-- Footer Links -->
+        <div class="flex justify-center space-x-6 mb-6 text-sm">
+          <a href="#" class="text-gray-400 hover:text-seafoam"
+            >Privacy Policy</a
+          >
+          <a href="#" class="text-gray-400 hover:text-seafoam"
+            >Terms of Service</a
+          >
+          <a href="#" class="text-gray-400 hover:text-seafoam">Help Center</a>
+        </div>
+
+        <!-- Copyright -->
+        <p class="text-gray-500 text-sm">
+          &copy; 2024 CarKeyper. All rights reserved.
+        </p>
+      </div>
+    </footer>
+  </main>
+</div>

@@ -6,7 +6,7 @@
     <div class="flex-1 p-6 overflow-y-auto">
       <main class="w-full h-auto mt-20">
         <div class="mt-24 mx-12 flex justify-between">
-          <app-searchbar></app-searchbar>
+          <!-- <app-searchbar></app-searchbar> -->
           <app-button [buttonText]="'Add Checklist'" (buttonClick)="navigateToAddChecklist()"></app-button>
         </div>
         <div
@@ -29,19 +29,26 @@
                 <ng-container *ngIf="checklists.length>0 else noChecklists">
                   <tr *ngFor="let checklist of checklists; let i=index" class="border-b">
                     <td class="px-6 py-4">{{ i + 1 }}</td>
-                    <td class="px-6 py-4">{{checklist.checklistTitle}}</td>
-                    <td class="px-6 py-4">{{checklist.checklistTime}}</td>
-                    <td class="px-6 py-4">{{checklist.assignedVehicle}}</td>
+                    <td class="px-6 py-4">
+                      {{checklist.title}}</td>
+                    <td class="px-6 py-4">
+                      <div *ngIf="checklist.checklist_time=='End of day'" class="bg-[#98FAFF61] text-center text-seagreen border-2 border-seagreen px-5 py-2 rounded-md w-44">End of day</div>
+                      <div *ngIf="checklist.checklist_time=='Beginning of day'" class="bg-[#FFE9AC61] text-center text-[#A69517] border-2 border-[#A69517] px-5 py-2 rounded-md w-44">Beginning of day</div>
+                      </td>
+                    <td class="px-6 py-4">{{checklist.assigned_vehicle}}</td>
                     <td class="px-6 py-4">
                       <!-- edit icon -->
+                     
                        <svg
                       xmlns="http://www.w3.org/2000/svg"
                       viewBox="0 0 24 24"
                       fill="currentColor"
                       class="size-5 text-seagreen cursor-pointer hover:text-green-700"
+                      [routerLink]="['/checklist/edit', checklist.template_id]"
                     >
                       <path d="M21.731 2.269a2.625 2.625 0 0 0-3.712 0l-1.157 1.157 3.712 3.712 1.157-1.157a2.625 2.625 0 0 0 0-3.712ZM19.513 8.199l-3.712-3.712-12.15 12.15a5.25 5.25 0 0 0-1.32 2.214l-.8 2.685a.75.75 0 0 0 .933.933l2.685-.8a5.25 5.25 0 0 0 2.214-1.32L19.513 8.2Z" />
                     </svg>
+                   
                     </td>
                     <td>
                       <svg
@@ -49,7 +56,7 @@
                       viewBox="0 0 24 24"
                       fill="currentColor"
                       class="size-5 text-[#FB5D5D] cursor-pointer hover:text-red-700"
-                      (click)="onDeleteClick(i)"
+                      (click)="onDeleteClick(checklist.template_id, i)" >
                     >
                       <path
                         fill-rule="evenodd"

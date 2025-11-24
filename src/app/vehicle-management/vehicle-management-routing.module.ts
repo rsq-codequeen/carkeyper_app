@@ -5,6 +5,7 @@ import { VehicledataComponent } from './vehicledata/vehicledata.component';
 const routes: Routes = [
   { path: 'vehicledata', component:VehicledataComponent },
     {path:'',component:VehicledataComponent }
+    
 ];
 
 @NgModule({
