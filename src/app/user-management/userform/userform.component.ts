@@ -11,11 +11,10 @@ import { User } from '../user';
   styleUrls: ['./userform.component.css']
 })
 export class UserformComponent implements OnInit, OnChanges {
-  @Input() user?: User; // incoming user for edit
+  @Input() user?: User;
   @Output() close = new EventEmitter<void>();
   @Output() userAdded = new EventEmitter<any>();
   @Output() userUpdated = new EventEmitter<any>();
-
   userForm!: FormGroup;
 
   private readonly flexiblePkPhoneRegex = /^(\+92|92|0)3\d{9}$/;
@@ -23,10 +22,10 @@ export class UserformComponent implements OnInit, OnChanges {
 
   private getRoleId(roleName: string): number {
     switch (roleName.toLowerCase()) {
-        case 'Admin': return 1;
-        case 'Driver': return 2;
-        case 'Mechanic': return 3;
-        default: return 2; // Default to Driver
+        case 'admin': return 1;
+        case 'driver': return 2;
+        case 'mechanic': return 3;
+        default: return 2; 
     }
 }
   ngOnInit(): void {
@@ -41,16 +40,14 @@ export class UserformComponent implements OnInit, OnChanges {
           Validators.pattern(this.flexiblePkPhoneRegex)
         ]
       ],
-      role: ['driver', Validators.required],
+      role: ['', Validators.required],
       assignedVehicles: ['']
     });
 
-    // if user provided at init, patch the form
     if (this.user) {
       this.patchFormFromInput();
     }
   }
-
   ngOnChanges(changes: SimpleChanges) {
     if (changes['user'] && !changes['user'].isFirstChange()) {
       this.patchFormFromInput();
@@ -59,17 +56,12 @@ export class UserformComponent implements OnInit, OnChanges {
 
   private patchFormFromInput() {
     if (!this.user) return;
-    // Normalize contact to string
     const contact = this.user.contact ?? '';
    this.userForm.patchValue({
-    // --- FIX HERE: Patching with separate names ---
     first_name: this.user.first_name ?? '',
     last_name: this.user.last_name ?? '',
-    // ---------------------------------------------
     email: this.user.email ?? '',
-    // --- FIX HERE: Form control name is 'contact' ---
     contact: String(contact), 
-    // ------------------------------------------------
     role: this.user.role ?? 'driver',
     assignedVehicles: this.user.assignedVehicles ?? ''
   });
@@ -95,17 +87,13 @@ export class UserformComponent implements OnInit, OnChanges {
     this.close.emit();
   }
 
-  // src/app/user-management/userform/userform.component.ts
 
 submit() {
-    // 1. Check form validity
     if (this.userForm.invalid) {
         this.userForm.markAllAsTouched();
-        // Return immediately if validation fails
         return; 
     }
 
-    // 2. Sanitize and format contact number
     const rawContact = this.userForm.value.contact || '';
     let sanitizedContact = rawContact.replace(/\D/g, '');
 
@@ -115,40 +103,29 @@ submit() {
         sanitizedContact = '0' + sanitizedContact;
     }
     
-    // 3. Map role name to role_id
     const rawRole = this.userForm.value.role;
-    const roleId = this.getRoleId(rawRole); // Assumes getRoleId is correct
+    const roleId = this.getRoleId(rawRole); 
     
-    // --- DEBUGGING: Check values before payload creation ---
     console.log('[DEBUG] Raw Role Value:', rawRole);
     console.log('[DEBUG] Calculated Role ID:', roleId);
-    // ------------------------------------------------------
 
-    // 4. Construct the Backend-Compatible Payload
     const payload: any = { 
-        // Ensure all required backend fields are present
         first_name: this.userForm.value.first_name,
         last_name: this.userForm.value.last_name,
         email: this.userForm.value.email,
         contact_number: sanitizedContact, 
-        role_id: roleId, // CRITICAL: This MUST be a number (1, 2, or 3)
+        role_id: roleId, 
         
-        // Include optional fields for completeness
         assignedVehicles: this.userForm.value.assignedVehicles || '',
     };
     
-    // 5. Determine whether to Add or Update (based on presence of this.user)
     if (this.user && (this.user.id != null)) {
-        // For Update: Ensure the ID is attached to the payload
         payload.id = this.user.id;
         this.userUpdated.emit(payload);
     } else {
-        // For Add: No ID needed (backend generates it)
         this.userAdded.emit(payload);
     }
     
-    // --- FINAL DEBUGGING STEP ---
     console.log('[DEBUG] Final Payload Sent:', payload);
-    // ----------------------------
 }
 }
