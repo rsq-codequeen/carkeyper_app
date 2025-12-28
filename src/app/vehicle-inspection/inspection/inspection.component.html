@@ -1,0 +1,75 @@
+<div class="flex flex-col w-full h-screen">
+    <app-navbar [message]="'All Inspections'" class="flex-none"></app-navbar>
+    <div class="flex flex-1">
+    <app-sidebar class="w-14"></app-sidebar>
+    <div class="flex-1 p-6 overflow-y-auto">
+      <main class="w-full h-auto mt-20">
+        <div class="mt-24 mx-12 flex justify-between">
+          <app-searchbar></app-searchbar>
+          <select name="items" id="items" class="rounded-md border-2 border-gray-300 ">
+              <option value="item1" disabled>Checklist Time</option>
+              <option value="item2" class="text-grey">Beginning of Day</option>
+              <option value="item3" class="text-grey">End of Day</option>
+          </select>
+        </div>
+        <div
+          class="border-2 border-[#d9d9d9] overflow-x-auto rounded-3xl shadow-md m-6"
+          
+        >
+        <table class="w-full table-auto border-collapse text-left text-sm">
+            <thead
+              class="border-b text-sm uppercase text-seagreen font-semibold"
+            >
+              <tr>
+                <th scope="col" class="px-6 py-3">#</th>
+                <th scope="col" class="px-6 py-3">Driver Name</th>
+                <th scope="col" class="px-6 py-3">Vehicle</th>
+                <th scope="col" class="px-6 py-3">Checklist Time</th>
+                <th scope="col" class="px-6 py-3">Submission Date</th>
+                <th scope="col" class="px-6 py-3">Flagged Items</th>
+                <th scope="col" class="px-6 py-3">Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+               <tr class="border-b">
+                   <td class="px-6 py-4">1</td>
+                   <td class="px-6 py-4">Rida</td>
+                   <td class="px-6 py-4">Mustang</td>
+                   <td class="px-6 py-4">
+                      <div class="bg-[#98FAFF61] text-center text-seagreen border-2 border-seagreen px-5 py-2 rounded-md w-44">End of day</div>
+                   </td>
+                   <td class="px-6 py-4">
+                    September 21,2025
+                   </td>
+                   <td class="px-6 py-4">
+                    2/10
+                   </td>
+                   <td class="flex gap-x-8 px-6 py-4">
+                    <!-- eye -->
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6 text-seagreen" (click)="openModal('report')">
+                      <path d="M12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z" />
+                      <path fill-rule="evenodd" d="M1.323 11.447C2.811 6.976 7.028 3.75 12.001 3.75c4.97 0 9.185 3.223 10.675 7.69.12.362.12.752 0 1.113-1.487 4.471-5.705 7.697-10.677 7.697-4.97 0-9.186-3.223-10.675-7.69a1.762 1.762 0 0 1 0-1.113ZM17.25 12a5.25 5.25 0 1 1-10.5 0 5.25 5.25 0 0 1 10.5 0Z" clip-rule="evenodd" />
+                    </svg>
+                    <app-view-report  [isOpen]="activeModal === 'report'" (close)="closeModal()"></app-view-report>
+                    <!-- notes -->
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6 text-yellow-600" (click)="openModal('notes')">
+                        <path fill-rule="evenodd" d="M4.848 2.771A49.144 49.144 0 0 1 12 2.25c2.43 0 4.817.178 7.152.52 1.978.292 3.348 2.024 3.348 3.97v6.02c0 1.946-1.37 3.678-3.348 3.97-1.94.284-3.916.455-5.922.505a.39.39 0 0 0-.266.112L8.78 21.53A.75.75 0 0 1 7.5 21v-3.955a48.842 48.842 0 0 1-2.652-.316c-1.978-.29-3.348-2.024-3.348-3.97V6.741c0-1.946 1.37-3.68 3.348-3.97Z" clip-rule="evenodd" />
+                    </svg>
+                    <app-notes [isOpen]="activeModal === 'notes'" (close)="closeModal()"></app-notes>
+
+                    <!-- attachments -->
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6 text-red-500" (click)="openModal('attachments')">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="m18.375 12.739-7.693 7.693a4.5 4.5 0 0 1-6.364-6.364l10.94-10.94A3 3 0 1 1 19.5 7.372L8.552 18.32m.009-.01-.01.01m5.699-9.941-7.81 7.81a1.5 1.5 0 0 0 2.112 2.13" />
+                    </svg>
+                    <app-attachments [isOpen]="activeModal === 'attachments'" (close)="closeModal()"></app-attachments>
+                    
+                   </td>
+               </tr>
+            </tbody>
+          </table>
+          </div>
+      </main>
+    </div>
+  </div>
+    
+</div>

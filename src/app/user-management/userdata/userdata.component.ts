@@ -1,12 +1,9 @@
 import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SharedModule } from "../../shared/shared.module";
-// import { UserformComponent } from '../../shared/userform/userform.component';
 import { UserService } from '../../services/user.service';
 import { Subscription } from 'rxjs';
 import { User } from '../user';
-// removed ReactiveForms imports
-// import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { UserformComponent } from '../userform/userform.component';
 @Component({
   selector: 'app-userdata',

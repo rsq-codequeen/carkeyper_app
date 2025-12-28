@@ -1,0 +1,20 @@
+<div *ngIf="isOpen" class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 " (click)="closeModal()">
+  
+  <div class="relative w-full max-w-lg mx-auto my-auto bg-white rounded-lg shadow-lg overflow-hidden" (click)="$event.stopPropagation()">
+    
+    <div class="flex items-center justify-between p-3 bg-seagreen">
+      <h3 class="text-lg font-semibold text-white flex-1 text-center ml-8">Notes</h3>
+      
+      <button (click)="closeModal()" class="text-white hover:text-gray-200 text-2xl leading-none">
+        &times; 
+      </button>
+    </div>
+    
+    <div class="p-6 h-auto max-h-80 overflow-y-auto">
+      <p class="text-sm text-gray-700 leading-relaxed text-justify">
+        Lorem ipsum dolor sit amet consectetur, adipisicing elit. Delectus molestias ullam cumque quas voluptates minima facere ratione culpa voluptatem Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequuntur eum autem perferendis est modi libero pariatur illo adipisci odio dignissimos iste, ab magnam earum quia consectetur, id quae iure exercitationem tenetur incidunt corporis itaque dolor praesentium dicta. Alias error accusantium tempora perferendis ipsa, a iusto repellat velit adipisci minus enim esse incidunt quaerat nostrum in laboriosam iure. Optio obcaecati odit corrupti atque, dolor error dolorem architecto repellat, nisi sed similique perferendis incidunt molestiae, sapiente officia? Pariatur molestias repellendus, esse eos tenetur eaque error illum ipsam deleniti dolores sed dolore sequi minus. Quas ut porro blanditiis nisi consectetur perspiciatis unde mollitia?
+    </p>
+      </div>
+    
+  </div>
+</div>

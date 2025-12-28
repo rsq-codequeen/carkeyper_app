@@ -54,7 +54,11 @@
           </div>
           <div>
           <label class="block text-sm font-medium mb-1">Assigned Vehicles</label>
-          <input formControlName="assignedVehicles" type="text" class="w-full border rounded px-3 py-2" placeholder="Comma-separated IDs or names" />
+          <select  class="w-full border rounded px-3 py-2" >
+                <option value="" disabled> Select a Vehicle </option>
+                <option *ngFor="let vehicle of vehicles" [value]="vehicle.make">{{vehicle.make}}</option>
+                
+              </select>
         </div>
 </div>
 

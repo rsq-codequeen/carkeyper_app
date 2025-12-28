@@ -2,7 +2,8 @@ import { Component, OnInit, Output, EventEmitter, Input, OnChanges, SimpleChange
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { User } from '../user';
-
+import { VehicleService } from '../../services/vehicle.service';
+import { Vehicle } from '../../vehicle-management/vehicle';
 @Component({
   selector: 'app-userform',
   standalone: true,
@@ -16,9 +17,9 @@ export class UserformComponent implements OnInit, OnChanges {
   @Output() userAdded = new EventEmitter<any>();
   @Output() userUpdated = new EventEmitter<any>();
   userForm!: FormGroup;
-
+  vehicles: Vehicle[] = [];
   private readonly flexiblePkPhoneRegex = /^(\+92|92|0)3\d{9}$/;
-  constructor(private fb: FormBuilder) {}
+  constructor(private fb: FormBuilder,private vehicleService: VehicleService) {}
 
   private getRoleId(roleName: string): number {
     switch (roleName.toLowerCase()) {
@@ -29,6 +30,7 @@ export class UserformComponent implements OnInit, OnChanges {
     }
 }
   ngOnInit(): void {
+    this.fetchVehicles();
     this.userForm = this.fb.group({
       first_name: ['', Validators.required],
       last_name: [''],
@@ -48,6 +50,7 @@ export class UserformComponent implements OnInit, OnChanges {
       this.patchFormFromInput();
     }
   }
+  
   ngOnChanges(changes: SimpleChanges) {
     if (changes['user'] && !changes['user'].isFirstChange()) {
       this.patchFormFromInput();
@@ -128,4 +131,17 @@ submit() {
     
     console.log('[DEBUG] Final Payload Sent:', payload);
 }
+fetchVehicles(): void {
+   
+    this.vehicleService.getVehicles().subscribe({
+      next: (data) => {
+        this.vehicles = data;
+        console.log('Fetched vehicles for dropdown:', this.vehicles);
+      },
+      error: (err) => {
+        console.error('Error fetching vehicles:', err);
+
+      }
+    });
+  }
 }

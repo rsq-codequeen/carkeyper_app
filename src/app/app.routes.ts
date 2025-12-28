@@ -26,6 +26,10 @@ export const routes: Routes = [
          loadChildren: () => import('./registration/registration.module').then(m => m.RegistrationModule)
     },
     {
+         path: '',
+         loadChildren: () => import('./vehicle-inspection/vehicle-inspection.module').then(m => m.VehicleInspectionModule)
+    },
+    {
           path:"**",
           loadChildren:()=>import('./exception-handling/exception-handling.module').then(m=>m.ExceptionHandlingModule)
     }
