@@ -1,0 +1,80 @@
+<div class="flex flex-col w-full h-screen bg-[#0a0a0c] text-white">
+  <app-navbar [message]="'Fleet Intelligence'"></app-navbar>
+
+  <div class="flex flex-1 overflow-hidden pt-16">
+    <app-sidebar class="w-20"></app-sidebar>
+
+    <main class="flex-1 p-8 overflow-y-auto custom-scrollbar">
+      
+      <div class="mb-10 flex justify-between items-end">
+        <div>
+          <h1 class="text-4xl font-black tracking-tighter uppercase italic leading-none">
+            Data <span class="text-cyan-400">Analytics</span>
+          </h1>
+          <p class="text-gray-500 font-mono text-[10px] mt-2 uppercase tracking-[0.2em] flex items-center gap-2">
+            <span class="w-1.5 h-1.5 bg-cyan-500 rounded-full animate-pulse"></span>
+            Processing operational metrics from DB_MAIN...
+          </p>
+        </div>
+        <div class="px-4 py-2 bg-white/5 border border-white/10 rounded-lg">
+          <span class="text-[10px] text-gray-500 font-bold uppercase tracking-widest">Global Status:</span>
+          <span class="text-seagreen ml-2 font-mono text-xs">OPTIMIZED</span>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+        
+        <div class="bg-[#ed2f0e53] border border-white/5 p-8 rounded-[2rem] shadow-2xl relative overflow-hidden group">
+          <div class="absolute top-0 left-0 w-24 h-1 bg-cyan-500 shadow-[0_0_15px_#06b6d4]"></div>
+          <h3 class="text-gray-400 font-black mb-8 uppercase text-xs tracking-[0.3em]">Resource Distribution</h3>
+          
+          <div class="flex justify-center py-4">
+            <apx-chart
+              class="w-full"
+              [series]="radialChart.series"
+              [chart]="radialChart.chart"
+              [plotOptions]="radialChart.plotOptions"
+              [labels]="radialChart.labels"
+              [colors]="radialChart.colors"
+            ></apx-chart>
+          </div>
+        </div>
+
+        <div class="bg-[#111114] border border-white/5 p-8 rounded-[2rem] shadow-2xl relative overflow-hidden">
+          <div class="absolute top-0 left-0 w-24 h-1 bg-seagreen shadow-[0_0_15px_#2ed573]"></div>
+          <h3 class="text-gray-400 font-black mb-8 uppercase text-xs tracking-[0.3em]">Weekly Intake Volume</h3>
+          
+          <apx-chart
+            [series]="areaChart.series"
+            [chart]="areaChart.chart"
+            [xaxis]="areaChart.xaxis"
+            [stroke]="areaChart.stroke"
+            [grid]="areaChart.grid"
+            [dataLabels]="areaChart.dataLabels"
+            [theme]="areaChart.theme"
+            [colors]="['#2ed573']"
+          ></apx-chart>
+        </div>
+
+      </div>
+
+      <div class="mt-8 bg-gradient-to-r from-cyan-500/5 via-white/[0.02] to-cyan-500/5 border border-white/5 p-8 rounded-[2rem] flex justify-around items-center">
+          <div class="text-center">
+              <span class="block text-[10px] text-gray-500 uppercase font-black tracking-widest mb-2">Growth</span>
+              <span class="text-3xl font-black text-white">+12<span class="text-cyan-500 text-sm">%</span></span>
+          </div>
+          <div class="h-12 w-px bg-white/5"></div>
+          <div class="text-center">
+              <span class="block text-[10px] text-gray-500 uppercase font-black tracking-widest mb-2">System Health</span>
+              <span class="text-3xl font-black text-seagreen drop-shadow-[0_0_10px_rgba(46,213,115,0.3)]">EXCELLENT</span>
+          </div>
+          <div class="h-12 w-px bg-white/5"></div>
+          <div class="text-center">
+              <span class="block text-[10px] text-gray-500 uppercase font-black tracking-widest mb-2">Efficiency</span>
+              <span class="text-3xl font-black text-white">94<span class="text-gray-600 text-sm">/100</span></span>
+          </div>
+      </div>
+
+    </main>
+  </div>
+</div>

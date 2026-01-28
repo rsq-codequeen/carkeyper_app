@@ -1,6 +1,7 @@
 export interface Vehicle {
   id?: number;
   registration_number: string;
+  vehicle_id?: number;
   type?: string;
   color?: string;
   role?: string;

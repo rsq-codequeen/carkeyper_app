@@ -1,0 +1,29 @@
+/* The Neon Sweep Effect */
+.radar-sweep {
+  background: conic-gradient(
+    from 0deg, 
+    transparent 0%, 
+    rgba(34, 211, 238, 0.05) 40%, 
+    rgba(34, 211, 238, 0.4) 95%, 
+    #22d3ee 100%
+  );
+  animation: sweep 4s linear infinite;
+  transform-origin: center;
+}
+
+@keyframes sweep {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* Custom Scrollbar for the Dashboard */
+.custom-scrollbar::-webkit-scrollbar {
+  width: 4px;
+}
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: #000;
+}
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: #22d3ee;
+  border-radius: 10px;
+}

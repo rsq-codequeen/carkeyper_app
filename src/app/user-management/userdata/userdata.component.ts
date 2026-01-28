@@ -83,40 +83,45 @@ onDelete(user: User) {
   closeModal() {
     this.showModal = false;
   }
+// userdata.component.ts
+onUserAdded(newUser: any) {
+    const vehicleIdToAssign = newUser.vehicleId; // Extracted from your form payload
 
-  // handler invoked when userform emits created user
-  onUserAdded(newUser: any) {
-   this.userService.addUser(newUser).subscribe({
+    this.userService.addUser(newUser).subscribe({
         next: (response) => {
-            console.log('User added successfully via API:', response);
-            // 2. Refresh the list from the backend
-            this.loadUsers(); 
+            // Check if the backend returned the new ID and if we have a vehicle to link
+            if (response.userId && vehicleIdToAssign) {
+                this.userService.assignVehicle(response.userId, vehicleIdToAssign).subscribe({
+                    next: () => this.loadUsers(),
+                    error: (err) => console.error("Assignment failed after user creation", err)
+                });
+            } else {
+                this.loadUsers();
+            }
             this.closeModal();
-        },
-        error: (err) => {
-            console.error('API Error adding user:', err);
-            // Handle and show specific errors (e.g., duplicate email 409)
-            alert(`Error adding user: ${err.error?.message || 'Server error'}`);
         }
     });
-  }
-onUserUpdated(updatedUser: User) {
-    if (!this.selectedUser || this.selectedUser.id == null) {
-        console.error("Cannot update: selected user or ID is missing.");
-        return;
-    }
-    const userId = this.selectedUser.id; 
+}
+onUserUpdated(updatedUser: any) {
+    const userId = updatedUser.id;
+    const vehicleId = updatedUser.vehicleId;
 
+    // 1. Update the user text info
     this.userService.editUser(userId, updatedUser).subscribe({
-        next: (response) => {
-            console.log('User updated successfully via API:', response);
-            this.loadUsers(); 
-            this.selectedUser = undefined;
-            this.closeModal();
-        },
-        error: (err) => {
-            console.error('API Error updating user:', err);
-            alert(`Error updating user: ${err.error?.message || 'Server error'}`);
+        next: () => {
+            console.log('User info updated');
+
+            // 2. ONLY NOW call the vehicle assignment
+            if (vehicleId) {
+                this.userService.assignVehicle(userId, vehicleId).subscribe({
+                    next: () => {
+                        console.log('Vehicle assigned!');
+                        this.loadUsers();
+                    }
+                });
+            } else {
+                this.loadUsers();
+            }
         }
     });
 }

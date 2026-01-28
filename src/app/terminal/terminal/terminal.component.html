@@ -1,0 +1,91 @@
+<div class="flex flex-col w-full h-screen bg-[#0a0a0c] text-white">
+  <app-navbar [message]="'System Security Monitor'"></app-navbar>
+
+  <div class="flex flex-1 pt-16 overflow-hidden">
+    <app-sidebar class="w-20"></app-sidebar>
+
+    <main class="flex-1 p-8 overflow-y-auto flex flex-col items-center justify-start custom-scrollbar">
+      
+      <div class="w-full max-w-5xl mb-8 flex justify-between items-end px-4">
+        <div>
+          <h2 class="text-2xl font-black tracking-tighter uppercase mb-1">
+            Telemetry <span class="text-seagreen">Synchronizer</span>
+          </h2>
+          <p class="text-gray-500 text-xs font-mono uppercase tracking-widest">
+            Real-time background thread analysis // Node: {{ '02-SECURITY' }}
+          </p>
+        </div>
+        <div class="flex items-center gap-4 bg-white/5 px-4 py-2 rounded-lg border border-white/10">
+           <div class="flex flex-col items-end">
+             <span class="text-[10px] text-gray-500 uppercase font-bold">Latency</span>
+             <span class="text-cyan-400 font-mono text-xs">14ms</span>
+           </div>
+           <div class="w-px h-6 bg-white/10"></div>
+           <div class="flex flex-col items-end">
+             <span class="text-[10px] text-gray-500 uppercase font-bold">Signal</span>
+             <span class="text-seagreen font-mono text-xs">98%</span>
+           </div>
+        </div>
+      </div>
+
+      <div class="w-full max-w-5xl">
+        <div class="bg-[#0f0f11] rounded-2xl p-6 shadow-[0_0_50px_rgba(0,0,0,0.8)] border border-white/5 h-[600px] flex flex-col font-mono relative">
+          
+          <div class="pointer-events-none absolute inset-0 bg-[linear-gradient(rgba(18,16,16,0)_50%,rgba(0,0,0,0.1)_50%),linear-gradient(90deg,rgba(255,0,0,0.02),rgba(0,255,0,0.01),rgba(0,0,255,0.02))] z-10 bg-[length:100%_2px,3px_100%]"></div>
+
+          <div class="flex items-center justify-between mb-6 border-b border-white/5 pb-4 z-20">
+            <div class="flex space-x-2">
+              <div class="w-2.5 h-2.5 bg-red-500/50 rounded-full"></div>
+              <div class="w-2.5 h-2.5 bg-yellow-500/50 rounded-full"></div>
+              <div class="w-2.5 h-2.5 bg-seagreen rounded-full animate-pulse shadow-[0_0_8px_#2ed573]"></div>
+            </div>
+            <div class="text-right">
+              <span class="text-gray-600 text-[10px] uppercase tracking-[0.3em] block">Diagnostic Terminal</span>
+              <span class="text-seagreen text-[10px] font-bold bg-seagreen/10 px-2 py-0.5 rounded border border-seagreen/20">SYSTEM_UP_LOAD_OK</span>
+            </div>
+          </div>
+          
+          <div class="flex-1 overflow-y-auto space-y-1 text-xs custom-scrollbar z-20">
+            <div *ngFor="let log of logs" 
+                 [ngClass]="{
+                   'bg-red-500/10 text-red-400 p-2 rounded border-l-2 border-red-500 my-2': log.type === 'ALERT', 
+                   'text-seagreen/80 hover:text-seagreen': log.type === 'PING'
+                 }" 
+                 class="transition-all duration-200 py-1 group">
+              
+              <span class="text-gray-700 font-mono">[{{log.timestamp}}]</span> 
+              
+              <span class="font-black ml-3 tracking-tighter"> 
+                {{ log.type === 'ALERT' ? '>> SECURITY_BREACH' : '>> PING_RX' }}
+              </span> 
+
+              <span class="ml-2 text-gray-400 group-hover:text-gray-200 transition-colors">
+                {{ log.type === 'ALERT' ? log.message : 'Asset #' + log.id + ' pinged from ' + log.location }}
+              </span>
+            </div>
+
+            <div class="flex items-center gap-2 mt-4">
+               <span class="text-seagreen font-bold ml-2">system"&#64;"fleet_monitor : ~ $</span>
+               <span class="w-2 h-4 bg-seagreen animate-[pulse_0.8s_infinite]"></span>
+            </div>
+          </div>
+
+          <div class="mt-6 pt-4 border-t border-white/5 flex justify-between text-[10px] font-mono text-gray-600 uppercase tracking-widest z-20">
+            <div class="flex gap-4">
+              <span class="flex items-center gap-2">
+                <span class="w-1.5 h-1.5 bg-cyan-500 rounded-full"></span> 
+                Generator: Active
+              </span>
+              <span class="flex items-center gap-2">
+                <span class="w-1.5 h-1.5 bg-cyan-500 rounded-full"></span> 
+                Analyzer: Active
+              </span>
+            </div>
+            <span class="text-seagreen/50">Mem_Sync: 0xFF0032 [Locked]</span>
+          </div>
+        </div>
+      </div>
+
+    </main>
+  </div>
+</div>

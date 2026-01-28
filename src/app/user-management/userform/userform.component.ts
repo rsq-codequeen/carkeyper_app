@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { User } from '../user';
 import { VehicleService } from '../../services/vehicle.service';
 import { Vehicle } from '../../vehicle-management/vehicle';
+import { UserService } from '../../services/user.service';
 @Component({
   selector: 'app-userform',
   standalone: true,
@@ -19,7 +20,9 @@ export class UserformComponent implements OnInit, OnChanges {
   userForm!: FormGroup;
   vehicles: Vehicle[] = [];
   private readonly flexiblePkPhoneRegex = /^(\+92|92|0)3\d{9}$/;
-  constructor(private fb: FormBuilder,private vehicleService: VehicleService) {}
+  constructor(private fb: FormBuilder,
+    private vehicleService: VehicleService,
+  private userService: UserService) {}
 
   private getRoleId(roleName: string): number {
     switch (roleName.toLowerCase()) {
@@ -58,17 +61,24 @@ export class UserformComponent implements OnInit, OnChanges {
   }
 
   private patchFormFromInput() {
-    if (!this.user) return;
-    const contact = this.user.contact ?? '';
-   this.userForm.patchValue({
+  if (!this.user) return;
+
+  // Find the ID of the vehicle that matches the string in the user object
+  const matchingVehicle = this.vehicles.find(v => 
+    v.model === this.user?.assignedVehicles || 
+    `${v.model} (${v.registration_number})` === this.user?.assignedVehicles
+  );
+
+  this.userForm.patchValue({
     first_name: this.user.first_name ?? '',
     last_name: this.user.last_name ?? '',
     email: this.user.email ?? '',
-    contact: String(contact), 
+    contact: this.user.contact ?? '',
     role: this.user.role ?? 'driver',
-    assignedVehicles: this.user.assignedVehicles ?? ''
+    // Set the dropdown to the ID, not the string
+    assignedVehicles: matchingVehicle ? matchingVehicle.id : ''
   });
-  }
+}
 
   sanitizeAndLimitContact(event: Event) {
     const input = event.target as HTMLInputElement;
@@ -97,39 +107,29 @@ submit() {
         return; 
     }
 
-    const rawContact = this.userForm.value.contact || '';
-    let sanitizedContact = rawContact.replace(/\D/g, '');
+    // 1. Convert the dropdown selection to a real Number or null
+    const selectedValue = this.userForm.get('assignedVehicles')?.value;
+    const vehicleIdNum = (selectedValue && selectedValue !== 'None') ? Number(selectedValue) : null;
 
-    if (sanitizedContact.startsWith('92')) {
-        sanitizedContact = '0' + sanitizedContact.substring(2);
-    } else if (!sanitizedContact.startsWith('0') && sanitizedContact.length === 10) {
-        sanitizedContact = '0' + sanitizedContact;
-    }
-    
-    const rawRole = this.userForm.value.role;
-    const roleId = this.getRoleId(rawRole); 
-    
-    console.log('[DEBUG] Raw Role Value:', rawRole);
-    console.log('[DEBUG] Calculated Role ID:', roleId);
-
+    // 2. Build the payload exactly as the backend expects it
     const payload: any = { 
         first_name: this.userForm.value.first_name,
         last_name: this.userForm.value.last_name,
         email: this.userForm.value.email,
-        contact_number: sanitizedContact, 
-        role_id: roleId, 
-        
-        assignedVehicles: this.userForm.value.assignedVehicles || '',
+        contact_number: this.userForm.value.contact, 
+        role_id: this.getRoleId(this.userForm.value.role),
+        vehicleId: vehicleIdNum  // <--- This MUST be the number (e.g., 2)
     };
-    
-    if (this.user && (this.user.id != null)) {
+
+    if (this.user && this.user.id) {
         payload.id = this.user.id;
         this.userUpdated.emit(payload);
     } else {
         this.userAdded.emit(payload);
     }
-    
-    console.log('[DEBUG] Final Payload Sent:', payload);
+
+    console.log('Final payload sent to parent:', payload);
+    this.closeModal();
 }
 fetchVehicles(): void {
    

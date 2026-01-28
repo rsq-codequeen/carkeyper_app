@@ -1,8 +1,18 @@
-<button  (click)="onClick()"  type="button"
-        class="px-8 py-1 rounded-lg bg-gradient-to-r from-[#006666] via-[#088f8f,#009090] to-[#006666]  text-white text-center font-semibold flex gap-2">
-        {{buttonText}}
-        <svg *ngIf="buttonText=='Add user'" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6 ">
+<button (click)="onClick()" type="button"
+        class="group relative px-8 py-2 rounded-lg bg-seagreen text-black font-bold flex items-center justify-center gap-2 shadow-[0_0_15px_rgba(255,77,0,0.3)] hover:shadow-[0_0_25px_rgba(255,77,0,0.5)] transition-all duration-300 transform hover:-translate-y-0.5 active:scale-95">
+        
+        <span class="uppercase tracking-wider text-sm">{{buttonText}}</span>
+
+        <svg *ngIf="buttonText === 'Add user'" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="size-5">
           <path stroke-linecap="round" stroke-linejoin="round" d="M18 7.5v3m0 0v3m0-3h3m-3 0h-3m-2.25-4.125a3.375 3.375 0 1 1-6.75 0 3.375 3.375 0 0 1 6.75 0ZM3 19.235v-.11a6.375 6.375 0 0 1 12.75 0v.109A12.318 12.318 0 0 1 9.374 21c-2.331 0-4.512-.645-6.374-1.766Z" />
         </svg>
 
- </button>
+        <svg *ngIf="buttonText === 'Add vehicle'" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="size-5">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 18.75a1.5 1.5 0 0 1-3 0m3 0a1.5 1.5 0 0 0-3 0m3 0h6m-9 0H3.375a1.125 1.125 0 0 1-1.125-1.125V14.25m17.25 4.5a1.5 1.5 0 0 1-3 0m3 0a1.5 1.5 0 0 0-3 0m3 0h1.125c.621 0 1.129-.504 1.09-1.124a17.902 17.902 0 0 0-3.213-9.193 2.056 2.056 0 0 0-1.58-.86H14.25M16.5 18.75h-2.25m0-11.177V3.375A1.125 1.125 0 0 1 15.375 2.25h1.5a1.125 1.125 0 0 1 1.125 1.125v4.2m-3.375 1.127c-.246.246-.467.502-.663.766m-1.5-1.893v.005c0 .323-.13.633-.362.862l-1.14 1.14c-.23.23-.539.362-.862.362h-2.144a1.125 1.125 0 0 1-1.125-1.125V8.625c0-.323.13-.633.362-.862l1.14-1.14c.23-.23.539-.362.862-.362h2.144a1.125 1.125 0 0 1 1.125 1.125v.005Z" />
+        </svg>
+
+        <svg *ngIf="buttonText === 'Add Checklist'" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="size-5">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M9 12h3.75M9 15h3.75M9 18h3.75m3 .75H18a2.25 2.25 0 0 0 2.25-2.25V6.108c0-1.135-.845-2.098-1.976-2.192a48.424 48.424 0 0 0-1.123-.08m-5.801 0c-.065.21-.1.433-.1.664 0 .415.139.797.373 1.1a1.25 1.25 0 0 1-1.554 1.942 2.753 2.753 0 0 0-1.002-1.29 2.25 2.25 0 0 1-1.127-1.414c-.11-.476-.025-.976.225-1.397a2.25 2.25 0 0 1 1.34-1.005 13.048 13.048 0 0 1 1.304-.158c.241-.019.48-.032.72-.039m7.5 0a2.25 2.25 0 0 1 2.25 2.25v13.5a2.25 2.25 0 0 1-2.25 2.25h-10.5a2.25 2.25 0 0 1-2.25-2.25V6.108c0-1.135.845-2.098 1.976-2.192a48.424 48.424 0 0 1 1.123-.08" />
+        </svg>
+
+</button>

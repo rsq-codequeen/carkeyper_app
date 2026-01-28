@@ -20,7 +20,22 @@ export const routes: Routes = [
          path: 'checklist',
          loadChildren: () => import('./checklist/checklist.module').then(m => m.ChecklistModule)
     },
-    
+    {
+         path: 'intake',
+         loadChildren: () => import('./intake/intake.module').then(m => m.IntakeModule)
+    },
+    {
+         path: 'terminal',
+         loadChildren: () => import('./terminal/terminal.module').then(m => m.TerminalModule)
+    },
+    {
+         path: 'radar',
+         loadChildren: () => import('./radar/radar.module').then(m => m.RadarModule)
+    },
+    {
+         path: 'analytics',
+         loadChildren: () => import('./analytics/analytics.module').then(m => m.AnalyticsModule)
+    },
     {
          path: '',
          loadChildren: () => import('./registration/registration.module').then(m => m.RegistrationModule)

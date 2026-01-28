@@ -1,87 +1,63 @@
-<div 
-  class="min-h-screen flex items-center justify-center bg-cover bg-center"
-  style="background-image: url('../../../assets/sign_up.png');" 
->
+<div class="min-h-screen flex items-center justify-center bg-[#050505] relative overflow-hidden">
   
-  <div class="absolute inset-0 bg-black opacity-30 w-full"></div> 
-
-  <div class="z-10 p-8 rounded-2xl shadow-2xl bg-white max-w-xl border-4 border-black border-double"> 
-    
-    <div class="my-8 ">
-      <div class="flex  justify-center">
-      <img src="../../../assets/CarKeyper.png" class="w-48 m-0 p-0 " alt="">
-       
+  <div *ngIf="showToast" 
+       class="fixed top-10 z-50 flex flex-col items-center animate-bounce">
+    <div class="bg-red-600/20 border-2 border-red-500 backdrop-blur-md px-8 py-4 rounded-xl shadow-[0_0_30px_rgba(239,68,68,0.3)] flex items-center gap-4">
+      <div class="w-6 h-6 bg-red-500 rounded-full flex items-center justify-center animate-pulse">
+        <span class="text-black font-black text-xs">!</span>
       </div>
-     <h2
-        class="self-center text-center font-bold text-4xl bg-gradient-to-b  text-seagreen"
-      >
-        Login 
-      </h2 >
+      <div class="flex flex-col">
+        <span class="text-white font-black uppercase tracking-widest text-xs">Security Protocol Error</span>
+        <span class="text-red-400 font-mono text-[10px]">{{ errorMessage }}</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="absolute inset-0 z-0">
+    <div class="absolute inset-0 opacity-10" style="background-image: radial-gradient(circle, #22d3ee 1px, transparent 1px); background-size: 30px 30px;"></div>
+    <div class="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-seagreen/10 blur-[120px] rounded-full"></div>
+  </div>
+
+  <div [class.animate-shake]="isError" class="z-10 p-10 rounded-[2rem] bg-[#0d0d0f]/80 backdrop-blur-xl border border-white/10 max-w-xl w-full mx-4 shadow-2xl transition-all"> 
+    
+    <div class="mb-8">
+      <div class="flex justify-center mb-6">
+        <img src="../../../assets/CarKeyper.png" class="w-56 h-auto drop-shadow-[0_0_15px_rgba(46,213,115,0.3)]" alt="Logo">
+      </div>
+
+      <h2 class="text-center font-black text-3xl tracking-tighter uppercase italic text-white mb-2">
+        System <span class="text-seagreen">Access</span>
+      </h2>
       
-      <form (ngSubmit)="onSubmit()">
-        <div class=" field m-5">
-          <label for="email" class="block font-bold text-seagreen my-1 mx-2">Email</label>
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke-width="1.5"
-            stroke="currentColor"
-            class="size-6 absolute min-w-10 text-green-950 mt-3"
-          >
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              d="M21.75 6.75v10.5a2.25 2.25 0 0 1-2.25 2.25h-15a2.25 2.25 0 0 1-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0 0 19.5 4.5h-15a2.25 2.25 0 0 0-2.25 2.25m19.5 0v.243a2.25 2.25 0 0 1-1.07 1.916l-7.5 4.615a2.25 2.25 0 0 1-2.36 0L3.32 8.91a2.25 2.25 0 0 1-1.07-1.916V6.75"
-            />
-          </svg>
-          <input
-            type="email"
-            id="email"
-            name="email"
-            [(ngModel)]="credentials.email"
-            required
-            placeholder="Enter your email"
-            class="px-3 pl-8 py-1 w-96 h-12 border-2 border-gray-300 rounded-xl"
-          />
+      <form (ngSubmit)="onSubmit()" class="space-y-6">
+        <div class="relative group">
+          <label class="block text-[10px] font-bold text-gray-500 uppercase tracking-[0.2em] mb-2 ml-2">Digital Signature</label>
+          <div class="relative flex items-center">
+            <svg class="w-5 h-5 absolute left-3 text-seagreen" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M21.75 6.75v10.5a2.25 2.25 0 0 1-2.25 2.25h-15a2.25 2.25 0 0 1-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0 0 19.5 4.5h-15a2.25 2.25 0 0 0-2.25 2.25m19.5 0v.243a2.25 2.25 0 0 1-1.07 1.916l-7.5 4.615a2.25 2.25 0 0 1-2.36 0L3.32 8.91a2.25 2.25 0 0 1-1.07-1.916V6.75" />
+            </svg>
+            <input type="email" name="email" [(ngModel)]="credentials.email" placeholder="name@fleet-sector.com"
+                   class="w-full bg-black/40 border border-white/5 rounded-xl px-10 py-3.5 text-white placeholder-gray-700 focus:border-red-500/50 outline-none transition-all font-mono text-sm"
+                   [class.border-red-500]="isError && !credentials.email">
+          </div>
         </div>
-        <div class="field m-5">
-          <label for="password" class="block font-bold text-seagreen my-1 mx-2">Password</label>
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke-width="1.5"
-            stroke="currentColor"
-            class="size-6 absolute min-w-10 text-green-950 mt-3"
-          >
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              d="M16.5 10.5V6.75a4.5 4.5 0 1 0-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 0 0 2.25-2.25v-6.75a2.25 2.25 0 0 0-2.25-2.25H6.75a2.25 2.25 0 0 0-2.25 2.25v6.75a2.25 2.25 0 0 0 2.25 2.25Z"
-            />
-          </svg>
-          <input
-            type="password"
-            id="password"
-            name="password"
-            [(ngModel)]="credentials.password"
-            required
-            placeholder="Enter your password"
-            class="px-3 pl-8 py-1 w-96 h-12 border-2 border-gray-300 rounded-xl"
-          />
+
+        <div class="relative group">
+          <label class="block text-[10px] font-bold text-gray-500 uppercase tracking-[0.2em] mb-2 ml-2">Access Key</label>
+          <div class="relative flex items-center">
+            <svg class="w-5 h-5 absolute left-3 text-seagreen" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M16.5 10.5V6.75a4.5 4.5 0 1 0-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 0 0 2.25-2.25v-6.75a2.25 2.25 0 0 0-2.25-2.25H6.75a2.25 2.25 0 0 0-2.25 2.25v6.75a2.25 2.25 0 0 0 2.25 2.25Z" />
+            </svg>
+            <input type="password" name="password" [(ngModel)]="credentials.password" placeholder="••••••••••••"
+                   class="w-full bg-black/40 border border-white/5 rounded-xl px-10 py-3.5 text-white placeholder-gray-700 focus:border-red-500/50 outline-none transition-all font-mono text-sm"
+                   [class.border-red-500]="isError && !credentials.password">
+          </div>
         </div>
-        <div *ngIf="errorMessage" class="error-message text-center text-red-500">
-          {{ errorMessage }}
-        </div>
-        <div class="text-center">
-          <button
-            class="py-3 px-24 rounded-2xl bg-gradient-to-r from-[#006666] via-[#088f8f,#009090] to-[#006666] text-white font-semibold"
-            [disabled]="!credentials.email || !credentials.password"
-          >
-            Login
-          </button>
-        </div>
+
+        <button type="submit"
+                class="w-full py-4 rounded-xl bg-gradient-to-r from-seagreen to-[#2ed573] text-black font-black uppercase tracking-[0.25em] text-xs shadow-[0_0_20px_rgba(46,213,115,0.2)] hover:shadow-seagreen/40 transition-all">
+          Authenticate
+        </button>
       </form>
     </div>
   </div>

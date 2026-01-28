@@ -1,81 +1,95 @@
-<div class="fixed inset-0 flex items-center justify-center"> <!-- removed z on parent -->
-  <div class="absolute inset-0 bg-black opacity-50 z-40" (click)="closeModal()"></div> <!-- backdrop lower z -->
-  <div class="bg-white rounded-xl shadow-lg w-full max-w-2xl z-50 p-6 relative"> <!-- modal higher z -->
-    <header class="flex justify-between items-center mb-4">
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6 ">
-  <path d="M5.25 6.375a4.125 4.125 0 1 1 8.25 0 4.125 4.125 0 0 1-8.25 0ZM2.25 19.125a7.125 7.125 0 0 1 14.25 0v.003l-.001.119a.75.75 0 0 1-.363.63 13.067 13.067 0 0 1-6.761 1.873c-2.472 0-4.786-.684-6.76-1.873a.75.75 0 0 1-.364-.63l-.001-.122ZM18.75 7.5a.75.75 0 0 0-1.5 0v2.25H15a.75.75 0 0 0 0 1.5h2.25v2.25a.75.75 0 0 0 1.5 0v-2.25H21a.75.75 0 0 0 0-1.5h-2.25V7.5Z" />
-</svg>
-      <h3 class="text-lg font-semibold ">Add User</h3>
-      <button (click)="closeModal()" class="text-gray-600 hover:text-gray-800">✕</button>
-    </header>
-    <form [formGroup]="userForm" (ngSubmit)="submit()" class="space-y-4">
-      <div class="grid grid-cols-2 gap-4">
-        <div>
-          <label class="block text-sm font-medium mb-1">First Name</label>
-          <input formControlName="first_name" type="text" class="w-full border rounded px-3 py-2" placeholder="Enter first name"/>
-          <div *ngIf="userForm.get('first_name')?.touched && userForm.get('first_name')?.invalid" class="text-red-500 text-sm">First Name is required</div>
-        </div>
-        <div>
-          <label class="block text-sm font-medium mb-1">Last Name</label>
-          <input formControlName="last_name" type="text" class="w-full border rounded px-3 py-2" placeholder="Enter last name"/>
-          <div *ngIf="userForm.get('last_name')?.touched && userForm.get('last_name')?.invalid" class="text-red-500 text-sm">Last Name is required</div>
-        </div>
-        <div>
-          <label class="block text-sm font-medium mb-1">Email</label>
-          <input formControlName="email" type="email" class="w-full border rounded px-3 py-2" placeholder="Enter email"/>
-          <div *ngIf="userForm.get('email')?.touched && userForm.get('email')?.invalid" class="text-red-500 text-sm">Enter a valid email</div>
-        </div>
-        <div>
-    <label class="block text-sm font-medium mb-1 text-black">Phone</label>
-    <input
-        formControlName="contact"
-        type="tel"
-        placeholder="03331234567 or +923331234567"
-        class="w-full border border-black rounded-lg px-4 py-2 focus:ring-indigo-500 focus:border-indigo-500 transition duration-150"
-        maxlength="11" 
-        />
-    <div *ngIf="userForm.get('contact')?.touched && userForm.get('contact')?.invalid" class="text-red-500 text-xs mt-1">
-        <div *ngIf="userForm.get('contact')?.errors?.['required']">Phone number is required.</div>
-        <div *ngIf="userForm.get('contact')?.errors?.['pattern']">
-            Must be a valid Pakistani mobile number (e.g., 03XXXXXXXXX or +923XXXXXXXXX).
-        </div>
-    </div>
-   
-           
-        </div>
-         <div>
-          <label class="block text-sm font-medium mb-1">Role</label>
-          <select formControlName="role" class="w-full border rounded px-3 py-2" >
-            <option value="" disabled> Select a role </option>
-            <option value="admin">Admin</option>
-            <option value="mechanic">Mechanic</option>
-            <option value="driver">Driver</option>
-          </select>
-          </div>
-          <div>
-          <label class="block text-sm font-medium mb-1">Assigned Vehicles</label>
-          <select  class="w-full border rounded px-3 py-2" >
-                <option value="" disabled> Select a Vehicle </option>
-                <option *ngFor="let vehicle of vehicles" [value]="vehicle.make">{{vehicle.make}}</option>
-                
-              </select>
-        </div>
-</div>
+<div class="fixed inset-0 flex items-center justify-center z-[100]"> <div class="absolute inset-0 bg-black/80 backdrop-blur-sm z-40" (click)="closeModal()"></div>
 
-       
-          
-          
-        
+  <div class="bg-[#121214] border border-white/10 rounded-2xl shadow-[0_0_50px_rgba(0,0,0,0.8)] w-full max-w-2xl z-50 p-8 relative overflow-hidden">
     
+    <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-seagreen to-transparent"></div>
 
-      <div class="flex justify-end gap-3 mt-4">
-        <button type="button" (click)="closeModal()" class="px-4 py-2 bg-gray-200 rounded">Cancel</button>
-        <button type="submit" class="px-4 py-2 bg-seagreen text-white rounded flex items-center">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6 mr-2">
-  <path [attr.fill-rule]="'evenodd'" d="M6.32 2.577a49.255 49.255 0 0 1 11.36 0c1.497.174 2.57 1.46 2.57 2.93V21a.75.75 0 0 1-1.085.67L12 18.089l-7.165 3.583A.75.75 0 0 1 3.75 21V5.507c0-1.47 1.073-2.756 2.57-2.93Z" [attr.clip-rule]="'evenodd'" />
-        </svg>
-          Save</button>
+    <header class="flex justify-between items-center mb-8">
+      <div class="flex items-center gap-3">
+        <div class="p-2 bg-seagreen/10 rounded-lg text-seagreen">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6">
+            <path d="M5.25 6.375a4.125 4.125 0 1 1 8.25 0 4.125 4.125 0 0 1-8.25 0ZM2.25 19.125a7.125 7.125 0 0 1 14.25 0v.003l-.001.119a.75.75 0 0 1-.363.63 13.067 13.067 0 0 1-6.761 1.873c-2.472 0-4.786-.684-6.76-1.873a.75.75 0 0 1-.364-.63l-.001-.122ZM18.75 7.5a.75.75 0 0 0-1.5 0v2.25H15a.75.75 0 0 0 0 1.5h2.25v2.25a.75.75 0 0 0 1.5 0v-2.25H21a.75.75 0 0 0 0-1.5h-2.25V7.5Z" />
+          </svg>
+        </div>
+        <h3 class="text-xl font-black text-white uppercase tracking-tighter">Add <span class="text-seagreen">System User</span></h3>
+      </div>
+      <button (click)="closeModal()" class="text-gray-500 hover:text-seagreen transition-colors text-2xl font-light">✕</button>
+    </header>
+
+    <form [formGroup]="userForm" (ngSubmit)="submit()" class="space-y-6">
+      <div class="grid grid-cols-2 gap-6">
+        
+        <div>
+          <label class="block text-xs font-bold uppercase tracking-widest text-gray-500 mb-2 ">First Name</label>
+          <input formControlName="first_name" type="text" 
+                 class="w-full bg-black/40 border border-white/10 rounded-lg px-4 py-2.5 text-white placeholder-gray-600 focus:border-seagreen focus:ring-1 focus:ring-seagreen/30 outline-none transition-all" 
+                 placeholder="Enter first name"/>
+          <div *ngIf="userForm.get('first_name')?.touched && userForm.get('first_name')?.invalid" class="text-red-500 text-xs mt-1 font-medium italic">First Name is required</div>
+        </div>
+
+        <div>
+          <label class="block text-xs font-bold uppercase tracking-widest text-gray-500 mb-2">Last Name</label>
+          <input formControlName="last_name" type="text" 
+                 class="w-full bg-black/40 border border-white/10 rounded-lg px-4 py-2.5 text-white placeholder-gray-600 focus:border-seagreen focus:ring-1 focus:ring-seagreen/30 outline-none transition-all" 
+                 placeholder="Enter last name"/>
+          <div *ngIf="userForm.get('last_name')?.touched && userForm.get('last_name')?.invalid" class="text-red-500 text-xs mt-1 font-medium italic">Last Name is required</div>
+        </div>
+
+        <div>
+          <label class="block text-xs font-bold uppercase tracking-widest text-gray-500 mb-2">Email Address</label>
+          <input formControlName="email" type="email" 
+                 class="w-full bg-black/40 border border-white/10 rounded-lg px-4 py-2.5 text-white placeholder-gray-600 focus:border-seagreen focus:ring-1 focus:ring-seagreen/30 outline-none transition-all" 
+                 placeholder="name@carkeyper.com"/>
+          <div *ngIf="userForm.get('email')?.touched && userForm.get('email')?.invalid" class="text-red-500 text-xs mt-1 font-medium italic">Enter a valid email</div>
+        </div>
+
+        <div>
+          <label class="block text-xs font-bold uppercase tracking-widest text-gray-500 mb-2">Phone</label>
+          <input formControlName="contact" type="tel" maxlength="11" 
+                 class="w-full bg-black/40 border border-white/10 rounded-lg px-4 py-2.5 text-white placeholder-gray-600 focus:border-seagreen focus:ring-1 focus:ring-seagreen/30 outline-none transition-all font-mono" 
+                 placeholder="03331234567"/>
+          <div *ngIf="userForm.get('contact')?.touched && userForm.get('contact')?.invalid" class="text-red-500 text-xs mt-1 italic">
+            <div *ngIf="userForm.get('contact')?.errors?.['required']">Phone number is required.</div>
+            <div *ngIf="userForm.get('contact')?.errors?.['pattern']">Must be a valid mobile number (03XXXXXXXXX).</div>
+          </div>
+        </div>
+
+        <div>
+          <label class="block text-xs font-bold uppercase tracking-widest text-gray-500 mb-2">Role Access</label>
+          <select formControlName="role" 
+                  class="w-full bg-black/40 border border-white/10 rounded-lg px-4 py-2.5 text-white placeholder-gray-600 focus:border-seagreen outline-none appearance-none custom-select-bg">
+            <option value="" disabled class="bg-[#121214]"> Select a role </option>
+            <option value="admin" class="bg-[#121214]">Admin</option>
+            <option value="mechanic" class="bg-[#121214]">Mechanic</option>
+            <option value="driver" class="bg-[#121214]">Driver</option>
+          </select>
+        </div>
+
+        <div>
+          <label class="block text-xs font-bold uppercase tracking-widest text-gray-500 mb-2">Assigned Vehicles</label>
+          <select formControlName="assignedVehicles" 
+                  class="w-full bg-black/40 border border-white/10 rounded-lg px-4 py-2.5 text-white placeholder-gray-600 focus:border-seagreen outline-none appearance-none">
+            <option value="None" disabled class="bg-[#121214]">No Vehicle Assigned</option> 
+            <option *ngFor="let v of vehicles" [value]="v.id" class="bg-[#121214]">
+              {{ v.make }}
+            </option>
+          </select>
+        </div>
+      </div>
+
+      <div class="flex justify-end gap-4 mt-8 pt-6 border-t border-white/5">
+        <button type="button" (click)="closeModal()" 
+                class="px-6 py-2.5 text-gray-400 hover:text-white font-bold uppercase text-xs tracking-widest transition-colors">
+          Cancel
+        </button>
+        <button type="submit" 
+                class="px-8 py-2.5 bg-seagreen text-black font-black uppercase text-xs tracking-widest rounded-lg flex items-center shadow-[0_0_20px_rgba(255,77,0,0.3)] hover:shadow-[0_0_30px_rgba(255,77,0,0.5)] transition-all active:scale-95">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-5 mr-2">
+            <path fill-rule="evenodd" d="M6.32 2.577a49.255 49.255 0 0 1 11.36 0c1.497.174 2.57 1.46 2.57 2.93V21a.75.75 0 0 1-1.085.67L12 18.089l-7.165 3.583A.75.75 0 0 1 3.75 21V5.507c0-1.47 1.073-2.756 2.57-2.93Z" clip-rule="evenodd" />
+          </svg>
+          Save User Data
+        </button>
       </div>
     </form>
-  </div>
+    </div>
 </div>

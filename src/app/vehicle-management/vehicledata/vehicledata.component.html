@@ -1,101 +1,83 @@
-<div class="flex flex-col w-full h-screen">
-  <!-- Sidebar -->
+<div class="flex flex-col w-full min-h-screen bg-[#0a0a0c] text-white">
   <app-navbar [message]="'All Vehicles'" class="flex-none"></app-navbar>
-  <div class="flex flex-1">
-    <app-sidebar class="w-14"></app-sidebar>
+  
+  <div class="flex flex-1 pt-16">
+    <app-sidebar class="w-20"></app-sidebar>
+    
     <div class="flex-1 p-6 overflow-y-auto">
-      <main class="w-full h-auto mt-20">
-
+      <main class="w-full h-auto mt-10">
         
-        <div class="mt-24 mx-12 flex justify-between">
-          <!-- <app-searchbar></app-searchbar> -->
+        <div class="mx-6 mb-8 flex justify-between items-center">
+          <h2 class="text-2xl font-black tracking-tighter uppercase">
+            Fleet <span class="text-seagreen">Inventory</span>
+          </h2>
           <app-button
             [buttonText]="'Add vehicle'"
-           (buttonClick)="openAddUserModal()"
+            (buttonClick)="openAddUserModal()"
           ></app-button>
         </div>
+
         <app-vehicleform
-        *ngIf="showModal"
-        [vehicle]="selectedVehicle"
-        (close)="closeModal()"
+          *ngIf="showModal"
+          [vehicle]="selectedVehicle"
+          (close)="closeModal()"
           (vehicleAdded)="OnVehicleAdded($event)"
           (vehicleUpdated)="onVehicleUpdated($event)"
         ></app-vehicleform>
-        <div
-          class="border-2 border-[#d9d9d9] overflow-x-auto rounded-3xl shadow-md m-6"
-        >
+
+        <div class="bg-[#121214] border border-white/5 overflow-x-auto rounded-2xl shadow-2xl m-6">
           <table class="w-full table-auto border-collapse text-left text-sm">
-            <thead
-              class="border-b text-sm uppercase text-seagreen font-semibold"
-            >
+            <thead class="bg-white/5 border-b border-white/10 text-xs uppercase text-seagreen font-bold tracking-widest">
               <tr>
-                <th scope="col" class="px-6 py-3">#</th>
-                <th scope="col" class="px-6 py-3">Registration No.</th>
-                <th scope="col" class="px-6 py-3">Type</th>
-                <th scope="col" class="px-6 py-3">Color</th>
-                <th scope="col" class="px-6 py-3">Make</th>
-                <th scope="col" class="px-6 py-3">Fuel Type</th>
-                <th scope="col" class="px-6 py-3">transmission</th>
-                <th scope="col" class="px-6 py-3">Model</th>
-                <!-- <th scope="col" class="px-6 py-3">Assigned Users</th> -->
-                <th scope="col" class="px-6 py-3">Actions</th>
+                <th scope="col" class="px-6 py-5">#</th>
+                <th scope="col" class="px-6 py-5">Registration</th>
+                <th scope="col" class="px-6 py-5">Type</th>
+                <th scope="col" class="px-6 py-5 text-center">Brand/Make</th>
+                <th scope="col" class="px-6 py-5">Fuel/Trans</th>
+                <th scope="col" class="px-6 py-5">Model</th>
+                <th scope="col" class="px-6 py-5 text-center">Actions</th>
               </tr>
             </thead>
-            <tbody>
-              <tr *ngIf="vehicles.length===0">
-                <!-- <td></td> -->
-                <td></td>
-                <td></td>
-                <td></td>
-                  <td colspan="8" class="flex flex-col text-center py-4">
-                       <figure>
-                          <img src="../../../assets/Frame.png" alt="">
-                       </figure>
-                       <h1 class="text-xl font-bold">No Vehicle Found</h1>
-                  </td>
-              </tr>
-               <tr *ngFor="let vehicle of vehicles; let i = index" class="border-b">
-                    <td class="px-6 py-4">{{ i + 1 }}</td>
-                     <td class="px-6 py-4">{{ vehicle.registration_number }}</td>
-                    <td class="px-6 py-4">{{ vehicle.type }}</td>
-                    <td class="px-6 py-4">{{ vehicle.color }}</td>
-                    <td class="px-6 py-4">{{ vehicle.make }}</td>
-                    <td class="px-6 py-4">{{ vehicle.fueltype }}</td>
-                    <td class="px-6 py-4">{{ vehicle.transmission }}</td>
-                    <td class="px-6 py-4">{{ vehicle.model }}</td>
-                   
-                  <!-- <td class="px-6 py-4">
-                     {{vehicle.assignedUsers}}
-                  </td> -->
-                <td class="px-6 py-4">
-                  <!-- edit icon -->
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 24 24"
-                    fill="currentColor"
-                    class="size-6 text-seagreen"
-                    (click)="openEditModal(vehicle)"
-                  >
-                    <path
-                      d="M21.731 2.269a2.625 2.625 0 0 0-3.712 0l-1.157 1.157 3.712 3.712 1.157-1.157a2.625 2.625 0 0 0 0-3.712ZM19.513 8.199l-3.712-3.712-12.15 12.15a5.25 5.25 0 0 0-1.32 2.214l-.8 2.685a.75.75 0 0 0 .933.933l2.685-.8a5.25 5.25 0 0 0 2.214-1.32L19.513 8.2Z"
-                    />
-                  </svg>
+            
+            <tbody class="divide-y divide-white/5">
+              <tr *ngIf="vehicles.length === 0">
+                <td colspan="7" class="py-20 text-center">
+                  <div class="flex flex-col items-center opacity-40">
+                    <img src="../../../assets/Frame.png" alt="Empty" class="w-32 mb-4 grayscale invert">
+                    <h1 class="text-xl font-bold tracking-widest uppercase text-gray-500">No Assets Detected</h1>
+                  </div>
                 </td>
-                <td>
-                  <!-- delete icon  -->
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 24 24"
-                    fill="currentColor"
-                    class="size-6 text-[#FB5D5D]"
-                    (click)="onDelete(vehicle)"
-                  >
-                    <path
-                      fill-rule="evenodd"
-                      d="M16.5 4.478v.227a48.816 48.816 0 0 1 3.878.512.75.75 0 1 1-.256 1.478l-.209-.035-1.005 13.07a3 3 0 0 1-2.991 2.77H8.084a3 3 0 0 1-2.991-2.77L4.087 6.66l-.209.035a.75.75 0 0 1-.256-1.478A48.567 48.567 0 0 1 7.5 4.705v-.227c0-1.564 1.213-2.9 2.816-2.951a52.662 52.662 0 0 1 3.369 0c1.603.051 2.815 1.387 2.815 2.951Zm-6.136-1.452a51.196 51.196 0 0 1 3.273 0C14.39 3.05 15 3.684 15 4.478v.113a49.488 49.488 0 0 0-6 0v-.113c0-.794.609-1.428 1.364-1.452Zm-.355 5.945a.75.75 0 1 0-1.5.058l.347 9a.75.75 0 1 0 1.499-.058l-.346-9Zm5.48.058a.75.75 0 1 0-1.498-.058l-.347 9a.75.75 0 0 0 1.5.058l.345-9Z"
-                      clip-rule="evenodd"
-                    />
-                  </svg>
+              </tr>
+
+              <tr *ngFor="let vehicle of vehicles; let i = index" class="hover:bg-seagreen/[0.02] transition-colors">
+                <td class="px-6 py-4 font-mono text-gray-600">{{ i + 1 }}</td>
+                <td class="px-6 py-4 font-bold text-gray-200 tracking-wider">{{ vehicle.registration_number }}</td>
+                <td class="px-6 py-4"><span class="px-2 py-1 bg-white/5 rounded text-xs uppercase">{{ vehicle.type }}</span></td>
+                <td class="px-6 py-4 text-center text-gray-300">{{ vehicle.make }}</td>
+                <td class="px-6 py-4">
+                  <div class="text-xs text-gray-400 font-mono">{{ vehicle.fueltype }}</div>
+                  <div class="text-[10px] text-gray-600 uppercase">{{ vehicle.transmission }}</div>
+                </td>
+                <td class="px-6 py-4 font-mono text-seagreen">{{ vehicle.model }}</td>
+                
+                <td class="px-6 py-4">
+                  <div class="flex items-center justify-center gap-4">
+                    <button (click)="openEditModal(vehicle)" class="hover:scale-110 transition-transform">
+                      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-5 text-seagreen">
+                        <path d="M21.731 2.269a2.625 2.625 0 0 0-3.712 0l-1.157 1.157 3.712 3.712 1.157-1.157a2.625 2.625 0 0 0 0-3.712ZM19.513 8.199l-3.712-3.712-12.15 12.15a5.25 5.25 0 0 0-1.32 2.214l-.8 2.685a.75.75 0 0 0 .933.933l2.685-.8a5.25 5.25 0 0 0 2.214-1.32L19.513 8.2Z" />
+                      </svg>
+                    </button>
+                    <button (click)="viewHistory(vehicle)" class="hover:scale-110 transition-transform">
+                      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="size-5 text-cyan-400">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M9 12h3.75M9 15h3.375M9 18h3.375m1.875-12h-3.75a1.875 1.875 0 0 0-1.875 1.875V19.5c0 .621.504 1.125 1.125 1.125h9.75c.621 0 1.125-.504 1.125-1.125V7.875c0-.621-.504-1.125-1.125-1.125H16.5a1.875 1.875 0 0 1-1.875-1.875V4.5Z" />
+                      </svg>
+                    </button>
+                    <button (click)="onDelete(vehicle)" class="hover:scale-110 transition-transform">
+                      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-5 text-red-500/70">
+                        <path fill-rule="evenodd" d="M16.5 4.478v.227a48.816 48.816 0 0 1 3.878.512.75.75 0 1 1-.256 1.478l-.209-.035-1.005 13.07a3 3 0 0 1-2.991 2.77H8.084a3 3 0 0 1-2.991-2.77L4.087 6.66l-.209.035a.75.75 0 0 1-.256-1.478A48.567 48.567 0 0 1 7.5 4.705v-.227c0-1.564 1.213-2.9 2.816-2.951a52.662 52.662 0 0 1 3.369 0c1.603.051 2.815 1.387 2.815 2.951Zm-6.136-1.452a51.196 51.196 0 0 1 3.273 0C14.39 3.05 15 3.684 15 4.478v.113a49.488 49.488 0 0 0-6 0v-.113c0-.794.609-1.428 1.364-1.452Zm-.355 5.945a.75.75 0 1 0-1.5.058l.347 9a.75.75 0 1 0 1.499-.058l-.346-9Zm5.48.058a.75.75 0 1 0-1.498-.058l-.347 9a.75.75 0 0 0 1.5.058l.345-9Z" clip-rule="evenodd" />
+                      </svg>
+                    </button>
+                  </div>
                 </td>
               </tr>
             </tbody>
@@ -106,4 +88,56 @@
   </div>
 </div>
 
+<div *ngIf="showHistoryModal" class="fixed inset-0 flex items-center justify-center z-[100]">
+  <div class="absolute inset-0 bg-black/80 backdrop-blur-md" (click)="showHistoryModal = false"></div>
+  
+  <div class="bg-[#121214] border border-white/10 rounded-2xl shadow-[0_0_50px_rgba(0,0,0,0.8)] w-full max-w-3xl z-50 p-8 relative max-h-[85vh] overflow-hidden flex flex-col">
+    
+    <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-cyan-400 to-transparent"></div>
 
+    <header class="flex justify-between items-start mb-10">
+      <div>
+        <h2 class="text-2xl font-black text-white uppercase tracking-tighter">Vehicle <span class="text-cyan-400">Health Card</span></h2>
+        <div class="flex items-center gap-2 mt-2">
+          <span class="px-2 py-0.5 bg-cyan-400/10 border border-cyan-400/30 text-cyan-400 text-xs font-mono rounded">
+            {{ selectedVehicleForHistory?.registration_number }}
+          </span>
+          <p class="text-gray-400 text-sm font-bold uppercase tracking-widest">
+            {{ selectedVehicleForHistory?.make }} {{ selectedVehicleForHistory?.model }}
+          </p>
+        </div>
+      </div>
+      <button (click)="showHistoryModal = false" class="text-gray-500 hover:text-white text-2xl transition-colors">✕</button>
+    </header>
+
+    <div class="overflow-y-auto flex-1 pr-4 custom-scrollbar">
+      <div *ngIf="historyLog.length === 0" class="text-center py-20 bg-black/20 rounded-xl border border-dashed border-white/5">
+        <p class="text-gray-500 italic font-mono uppercase text-xs tracking-widest">No Telemetry Logs Found</p>
+      </div>
+
+      <div class="space-y-8 relative before:absolute before:inset-0 before:ml-5 before:-translate-x-px before:h-full before:w-0.5 before:bg-gradient-to-b before:from-cyan-400/50 before:via-white/5 before:to-transparent">
+        
+        <div *ngFor="let record of historyLog" class="relative flex items-start group">
+          <div class="flex items-center justify-center w-10 h-10 rounded-full border-2 border-[#121214] bg-gray-900 group-hover:border-cyan-400 transition-colors z-10 shadow-lg">
+            <div class="w-2 h-2 rounded-full bg-cyan-400 animate-pulse"></div>
+          </div>
+
+          <div class="ml-6 flex-1 p-5 rounded-xl border border-white/5 bg-white/[0.02] group-hover:bg-white/[0.04] transition-all">
+            <div class="flex items-center justify-between mb-2">
+              <div class="font-mono text-sm text-cyan-400">{{ record.created_at | date:'dd MMM, yyyy' }}</div>
+              <span class="px-2 py-0.5 rounded text-[10px] font-black uppercase tracking-widest bg-white/5 text-gray-400 border border-white/10">
+                {{ record.status }}
+              </span>
+            </div>
+            <div class="text-gray-200 text-sm leading-relaxed mb-3">"{{ record.description }}"</div>
+            <div class="text-[10px] text-gray-600 uppercase tracking-widest font-bold flex items-center gap-2">
+              <span class="w-1 h-1 bg-gray-600 rounded-full"></span>
+              Technician: {{ record.customer_name }}
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>

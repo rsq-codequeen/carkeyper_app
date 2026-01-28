@@ -1,0 +1,86 @@
+<div class="flex flex-col w-full h-screen bg-[#0a0a0c] text-white">
+  <app-navbar [message]="'Cyber-Fleet Surveillance'"></app-navbar>
+
+  <div class="flex flex-1 overflow-hidden pt-16">
+    <app-sidebar class="w-20"></app-sidebar>
+
+    <main class="flex-1 p-8 overflow-y-auto flex flex-col items-center justify-start custom-scrollbar">
+      
+      <div class="w-full max-w-4xl mb-6 flex justify-between items-end">
+        <div>
+          <h1 class="text-3xl font-black text-cyan-400 tracking-tighter uppercase italic leading-none">
+            Vector <span class="text-white">Radar</span>
+          </h1>
+          <p class="text-gray-500 text-[10px] font-mono mt-1 flex items-center gap-2">
+            <span class="w-2 h-2 bg-green-500 rounded-full animate-pulse"></span>
+            WEBWORKER_THREAD: ACTIVE // ENCRYPTION: AES-256
+          </p>
+        </div>
+        <div class="text-right font-mono text-[10px] text-gray-500">
+          SCAN_FREQ: 2.4GHz<br>
+          COORD_SYS: WGS-84
+        </div>
+      </div>
+
+      <div class="w-full max-w-2xl bg-[#0d0d0f] rounded-[40px] p-10 shadow-[0_0_80px_rgba(6,182,212,0.1)] border border-white/5 relative overflow-hidden">
+        
+        <div class="absolute inset-0 opacity-10" style="background-image: radial-gradient(#22d3ee 0.5px, transparent 0.5px); background-size: 20px 20px;"></div>
+        
+        <div class="relative w-full aspect-square max-w-[420px] mx-auto rounded-full border border-cyan-500/30 bg-black shadow-[inset_0_0_50px_rgba(6,182,212,0.1)] flex items-center justify-center overflow-hidden">
+          
+          <div class="absolute inset-0 rounded-full radar-sweep pointer-events-none z-10"></div>
+          
+          <div class="absolute w-full h-full border border-cyan-500/10 rounded-full"></div>
+          <div class="absolute w-3/4 h-3/4 border border-cyan-500/10 rounded-full"></div>
+          <div class="absolute w-1/2 h-1/2 border border-cyan-500/10 rounded-full"></div>
+          <div class="absolute w-1/4 h-1/4 border border-cyan-500/10 rounded-full"></div>
+
+          <div class="absolute w-full h-[1px] bg-cyan-500/20"></div>
+          <div class="absolute h-full w-[1px] bg-cyan-500/20"></div>
+
+          <div *ngFor="let ping of activePings" 
+               [style.top]="ping.top" 
+               [style.left]="ping.left"
+               class="absolute transition-all duration-1000 ease-in-out z-20">
+            
+            <div [ngClass]="ping.isBreach ? 'bg-red-500 shadow-[0_0_20px_#ef4444]' : 'bg-cyan-400 shadow-[0_0_15px_#22d3ee]'"
+                 class="w-2.5 h-2.5 rounded-full animate-pulse">
+            </div>
+
+            <div class="absolute -top-6 -left-2 flex flex-col pointer-events-none">
+              <span class="text-[8px] font-mono whitespace-nowrap" [class.text-red-500]="ping.isBreach" [class.text-cyan-400]="!ping.isBreach">
+                VCTR_{{ping.id}}
+              </span>
+              <div class="w-px h-3 bg-white/20 ml-1"></div>
+            </div>
+
+            <div *ngIf="ping.isBreach" class="absolute -top-10 -left-12 bg-red-600 text-[8px] text-white px-2 py-0.5 font-black animate-bounce uppercase rounded-sm border border-red-400">
+              ALERT: PROTOCOL_VIOLATION
+            </div>
+          </div>
+
+          <div class="w-4 h-4 bg-white rounded-full z-30 shadow-[0_0_20px_#fff] border-2 border-cyan-500 relative">
+             <div class="absolute inset-0 rounded-full bg-white animate-ping opacity-20"></div>
+          </div>
+        </div>
+
+        <div class="mt-10 grid grid-cols-3 gap-6 border-t border-white/5 pt-8 relative z-20">
+          <div class="text-center group">
+            <p class="text-gray-500 text-[9px] uppercase font-bold tracking-[0.2em] mb-1">Signal Fidelity</p>
+            <p class="text-cyan-400 font-mono text-xl font-black group-hover:scale-110 transition-transform cursor-default">98.4<span class="text-[10px] ml-1 opacity-50">%</span></p>
+          </div>
+          <div class="text-center border-x border-white/5 px-4">
+            <p class="text-gray-500 text-[9px] uppercase font-bold tracking-[0.2em] mb-1">Active Nodes</p>
+            <p class="text-white font-mono text-xl font-black">{{activePings.length | number:'2.0'}}</p>
+          </div>
+          <div class="text-center">
+            <p class="text-gray-500 text-[9px] uppercase font-bold tracking-[0.2em] mb-1">Security Perimeter</p>
+            <p [class.text-red-500]="hasBreach" [class.text-green-500]="!hasBreach" class="font-mono text-xl font-black uppercase tracking-tighter">
+              {{ hasBreach ? 'Breached' : 'Secure' }}
+            </p>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+</div>

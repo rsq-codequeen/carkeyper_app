@@ -1,194 +1,135 @@
-<div class="flex flex-col w-full h-screen">
+<div class="flex flex-col w-full min-h-screen bg-[#0a0a0c] text-white">
   <app-navbar [message]="'Home'" class="flex-none"></app-navbar>
-  <div class="flex flex-1">
-    <app-sidebar class="w-14"></app-sidebar>
-  </div>
-  <main class="flex-1 bg-gray-50">
-    <!-- 2. Hero Section (from original index.html) -->
-    <section class="bg-gradient-to-br from-white to-slate-100 py-20 sm:py-32">
-  <div class="container mx-auto px-4 sm:px-6 lg:px-8 text-center max-w-4xl">
-    <div class="flex justify-center m-0">
-      <img src="../../../assets/CarKeyper.png" alt="" class="m-0 w-44 sm:w-56 md:w-64 lg:w-72" />
-    </div>
-    <h1 class="mt-0 text-4xl sm:text-5xl lg:text-7xl font-extrabold text-gray-900 leading-tight mb-6">
-      CarKeyper<span class="text-seafoam">Admin Control</span>
-    </h1>
-    <p class="text-lg sm:text-xl text-gray-600 mb-10 max-w-2xl mx-auto">
-      Focuses on "Centralized Fleet Operations Control,"
-    </p>
-    <div class="flex flex-col sm:flex-row justify-center space-y-4 sm:space-y-0 sm:space-x-4">
-      <a href="#" class="px-8 py-3 rounded-xl text-white font-bold shadow-lg bg-gradient-to-r from-[#006666] to-[#04a1a1] hover:shadow-xl transition duration-300 transform hover:scale-105">
-        User Management
-      </a>
-      <a href="#" class="px-8 py-3 rounded-xl text-seafoam font-bold border-2 border-seafoam bg-white hover:bg-seafoam transition duration-300 transform hover:scale-105">
-        Vehicle Management
-      </a>
-    </div>
-  </div>
-</section>
 
+  <div class="flex flex-1 pt-16"> <app-sidebar class="w-20"></app-sidebar>
 
-   
-    <section class="ml-20 py-8 bg-white">
-      <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+    <main class="flex-1 ml-20 bg-[#0a0a0c]">
+      
+      <section class="relative overflow-hidden py-20 sm:py-32 border-b border-white/5 bg-gradient-to-br from-[#0a0a0c] to-[#121214]">
+        <div class="absolute top-0 right-0 -translate-y-1/2 translate-x-1/2 w-96 h-96 bg-seagreen/10 blur-[120px] rounded-full"></div>
         
-        <h2 class="text-4xl font-extrabold text-center text-gray-900 mb-12">
-          Core Administrative Modules
-        </h2>
-        <!-- Feature Cards Grid -->
-        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-          <!-- Feature Card 1 -->
-          <div
-            class=" p-6 rounded-2xl shadow-lg border-t-4 border-seafoam transition duration-500 hover:shadow-xl hover:translate-y-[-4px]"
-          >
-            <div class="text-seafoam mb-4">
-              <svg
-                class="w-10 h-10"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5l2 2h3a2 2 0 012 2v10a2 2 0 01-2 2z"
-                ></path>
-              </svg>
+        <div class="container mx-auto px-4 text-center max-w-4xl relative z-10">
+          <div class="flex justify-center mb-8">
+            <img src="../../../assets/CarKeyper.png" alt="Logo" class="w-44 sm:w-56 drop-shadow-[0_0_15px_rgba(255,77,0,0.3)]" />
+          </div>
+          
+          <h1 class="text-4xl sm:text-5xl lg:text-7xl font-extrabold leading-tight mb-6 tracking-tighter">
+            CarKeyper <span class="text-seagreen italic">ADMIN CONTROL</span>
+          </h1>
+          
+          <p class="text-lg sm:text-xl text-gray-400 mb-10 max-w-2xl mx-auto leading-relaxed">
+            Centralized Fleet Operations Control for the next generation of logistics.
+          </p>
+          
+          <div class="flex flex-col sm:flex-row justify-center space-y-4 sm:space-y-0 sm:space-x-4">
+            <a [routerLink]="['/user/']" class="px-8 py-3 rounded-xl bg-seagreen text-black font-bold shadow-[0_0_20px_rgba(255,77,0,0.4)] hover:shadow-[0_0_30px_rgba(255,77,0,0.6)] transition duration-300 transform hover:-translate-y-1">
+              User Management
+            </a>
+            <a [routerLink]="['/vehicle/']" class="px-8 py-3 rounded-xl text-seagreen font-bold border-2 border-seagreen/50 bg-transparent hover:bg-seagreen/10 transition duration-300 transform hover:-translate-y-1">
+              Vehicle Management
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <section class="py-20">
+        <div class="container mx-auto px-4 lg:px-12">
+          <h2 class="text-3xl font-bold text-center mb-16 tracking-tight uppercase">
+            Core <span class="text-seagreen">Administrative</span> Modules
+          </h2>
+          
+          <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div class="group p-8 rounded-2xl bg-[#121214] border border-white/5 hover:border-seagreen/50 transition-all duration-500 shadow-xl">
+              <div class="text-seagreen mb-6 group-hover:scale-110 transition-transform">
+                <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5l2 2h3a2 2 0 012 2v10a2 2 0 01-2 2z"></path>
+                </svg>
+              </div>
+              <h3 class="text-xl font-bold mb-3 text-white">Real-Time Tracking</h3>
+              <p class="text-gray-500 leading-relaxed">Know exactly where your vehicles are 24/7 with accurate GPS location services.</p>
             </div>
-            <h3 class="text-xl font-bold mb-3 text-gray-800">
-              Real-Time Tracking
-            </h3>
-            <p class="text-gray-600">
-              Know exactly where your vehicles are 24/7 with accurate GPS
-              location services.
-            </p>
+
+            <div class="group p-8 rounded-2xl bg-[#121214] border border-white/5 hover:border-seagreen/50 transition-all duration-500 shadow-xl">
+              <div class="text-seagreen mb-6 group-hover:scale-110 transition-transform">
+                <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                </svg>
+              </div>
+              <h3 class="text-xl font-bold mb-3 text-white">Compliance & Audits</h3>
+              <p class="text-gray-500 leading-relaxed">Automated reminders for inspections and repairs. Never miss a compliance deadline.</p>
+            </div>
+
+            <div class="group p-8 rounded-2xl bg-[#121214] border border-white/5 hover:border-seagreen/50 transition-all duration-500 shadow-xl">
+              <div class="text-seagreen mb-6 group-hover:scale-110 transition-transform">
+                <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path>
+                </svg>
+              </div>
+              <h3 class="text-xl font-bold mb-3 text-white">System Configuration</h3>
+              <p class="text-gray-500 leading-relaxed">Cloud-secured maintenance logs and fuel records for deep data analysis.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="py-20 bg-[#0c0c0e]">
+        <h2 class="text-3xl font-bold text-center mb-16 uppercase tracking-widest text-gray-400">System <span class="text-white">Benefits</span></h2>
+        <div class="container mx-auto px-4 lg:px-12 grid grid-cols-1 md:grid-cols-3 gap-8">
+          
+          <div class="flip-card h-64">
+            <div class="flip-card-inner">
+              <div class="flip-card-front1 flex items-center justify-center p-6 bg-[#121214] border border-white/5 rounded-2xl">
+                <p class="text-lg font-bold text-center uppercase tracking-tighter">Optimized Fuel Consumption</p>
+              </div>
+              <div class="flip-card-back1 flex flex-col items-center justify-center p-6 bg-seagreen rounded-2xl text-black">
+                <p class="font-black mb-2">IMPACT</p>
+                <p class="text-center text-sm font-medium">Identify and train drivers engaging in wasteful habits, saving costs instantly.</p>
+              </div>
+            </div>
           </div>
 
-          <!-- Feature Card 2 -->
-          <div
-            class="p-6 rounded-2xl shadow-lg border-t-4 border-seafoam transition duration-500 hover:shadow-xl hover:translate-y-[-4px]"
-          >
-            <div class="text-seafoam mb-4">
-              <svg
-                class="w-10 h-10"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
-                ></path>
-              </svg>
+          <div class="flip-card h-64">
+            <div class="flip-card-inner">
+              <div class="flip-card-front2 flex items-center justify-center p-6 bg-[#121214] border border-white/5 rounded-2xl">
+                <p class="text-lg font-bold text-center uppercase tracking-tighter">Reduced Maintenance</p>
+              </div>
+              <div class="flip-card-back2 flex flex-col items-center justify-center p-6 bg-seagreen rounded-2xl text-black">
+                <p class="font-black mb-2">IMPACT</p>
+                <p class="text-center text-sm font-medium">Extends asset life and reduces TCO by preventing breakdown before they happen.</p>
+              </div>
             </div>
-            <h3 class="text-xl font-bold mb-3 text-gray-800">
-              Compliance & Audit Logs
-            </h3>
-            <p class="text-gray-600">
-              Never miss a service appointment with automated reminders for oil
-              changes, inspections, and repairs.
-            </p>
           </div>
 
-          <div
-            class="bg-white p-6 rounded-2xl shadow-lg border-t-4 border-seafoam transition duration-500 hover:shadow-xl hover:translate-y-[-4px]"
-          >
-            <div class="text-seafoam mb-4">
-              <svg
-                class="w-10 h-10"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"
-                ></path>
-              </svg>
-            </div>
-            <h3 class="text-xl font-bold mb-3 text-gray-800">
-              System Configuration
-            </h3>
-            <p class="text-gray-600">
-              Keep all vehicle maintenance, fuel records, and documents safely
-              stored in the cloud.
-            </p>
-          </div>
-        </div>
-      </div>
-    </section>
-    <section class="ml-20 pb-10">
-        <h2 class="text-4xl font-extrabold text-center text-gray-900 mb-12">Benifits</h2>
-      <div class="container mx-auto px-4 sm:px-6 lg:px-8 flex gap-8">
-        
-        <div class="flip-card">
-          <div class="flip-card-inner">
-            <div class="flip-card-front1">
-              <p class="title">Optimized Fuel Consumption</p>
-              
-            </div>
-            <div class="flip-card-back1">
-              <p class="title">Administrative Impact</p>
-              <p>Administrators can identify and train drivers engaging in wasteful habits, leading to significant fuel cost savings.</p>
+          <div class="flip-card h-64">
+            <div class="flip-card-inner">
+              <div class="flip-card-front3 flex items-center justify-center p-6 bg-[#121214] border border-white/5 rounded-2xl">
+                <p class="text-lg font-bold text-center uppercase tracking-tighter">Streamlined Inventory</p>
+              </div>
+              <div class="flip-card-back3 flex flex-col items-center justify-center p-6 bg-seagreen rounded-2xl text-black">
+                <p class="font-black mb-2">IMPACT</p>
+                <p class="text-center text-sm font-medium">Simplifies auditing and improves forecasting for part procurement.</p>
+              </div>
             </div>
           </div>
-        </div>
-         <div class="flip-card">
-          <div class="flip-card-inner">
-            <div class="flip-card-front2">
-              <p class="title">Reduced Maintenance Costs</p>
-            </div>
-            <div class="flip-card-back2">
-              <p class="title">Administrative Impact</p>
-              <p>Decreases vehicle downtime and extends the useful life of assets, directly reducing the Total Cost of Ownership (TCO).</p>
-            </div>
-          </div>
-        </div>
-         <div class="flip-card">
-          <div class="flip-card-inner">
-            <div class="flip-card-front3">
-              <p class="title">Streamlined Inventory Management</p>
-            </div>
-            <div class="flip-card-back3">
-              <p class="title">Administrative Impact</p>
-              <p>Simplifies auditing and improves forecasting for parts procurement, ensuring resources are not tied up in unnecessary stock.</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-    
-    <!-- 4. Footer (from original index.html) -->
-    <footer class="bg-gray-800 text-white py-10">
-      <div class="container mx-auto px-4 sm:px-6 lg:px-8 text-center">
-        <div class="mb-6">
-          <a href="#" class="text-xl font-extrabold text-white">CarKeyper</a>
-        </div>
 
-        <!-- Footer Links -->
-        <div class="flex justify-center space-x-6 mb-6 text-sm">
-          <a href="#" class="text-gray-400 hover:text-seafoam"
-            >Privacy Policy</a
-          >
-          <a href="#" class="text-gray-400 hover:text-seafoam"
-            >Terms of Service</a
-          >
-          <a href="#" class="text-gray-400 hover:text-seafoam">Help Center</a>
         </div>
-
-        <!-- Copyright -->
-        <p class="text-gray-500 text-sm">
-          &copy; 2024 CarKeyper. All rights reserved.
-        </p>
-      </div>
-    </footer>
-  </main>
+      </section>
+      
+      <footer class="bg-[#050505] border-t border-white/5 py-12">
+        <div class="container mx-auto px-4 text-center">
+          <div class="text-2xl font-black text-white mb-6 tracking-tighter">
+            CAR<span class="text-seagreen">KEYPER</span>
+          </div>
+          <div class="flex justify-center space-x-8 mb-8 text-xs font-bold uppercase tracking-widest text-gray-500">
+            <a href="#" class="hover:text-seagreen transition-colors">Privacy</a>
+            <a href="#" class="hover:text-seagreen transition-colors">Terms</a>
+            <a href="#" class="hover:text-seagreen transition-colors">Help</a>
+          </div>
+          <p class="text-gray-600 text-xs tracking-widest">
+            &copy; 2026 CARKEYPER. ALL RIGHTS RESERVED.
+          </p>
+        </div>
+      </footer>
+    </main>
+  </div>
 </div>

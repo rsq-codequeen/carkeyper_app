@@ -32,4 +32,8 @@ export class UserService {
   
   return this.httpClient.put<any>(`${this.userUrl}/${userId}`, updatedUser);
 }
+assignVehicle(userId: number, vehicleId: number): Observable<any> {
+  // Use httpClient (matching your constructor)
+  return this.httpClient.post(`${this.userUrl}/${userId}/assign-vehicle`, { vehicleId });
+}
 }
