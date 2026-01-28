@@ -35,7 +35,7 @@
                 <th scope="col" class="px-6 py-3">Email</th>
                 <th scope="col" class="px-6 py-3">Phone Number</th>
                 <th scope="col" class="px-6 py-3">Role</th>
-                <th scope="col" class="px-6 py-3">Assigned Vehicles</th>
+                <!-- <th scope="col" class="px-6 py-3">Assigned Vehicles</th> -->
                 <th scope="col" class="px-6 py-3">Joined Date</th>
                 <th scope="col" class="px-6 py-3">Actions</th>
               </tr>
@@ -63,7 +63,7 @@
                       <app-mechanic-button *ngIf="user.role.toLowerCase()==='mechanic'"></app-mechanic-button>
                       <app-driver-button *ngIf="user.role.toLowerCase()==='driver'"></app-driver-button>
                     </td>
-                    <td class="px-6 py-4">{{user.assignedVehicles}}</td>
+                    <!-- <td class="px-6 py-4">{{user.assignedVehicles}}</td> -->
                 <td class="px-6 py-4">{{currentDate|date}}</td>
                 <td class="px-6 py-4">
                   <!-- edit icon -->
