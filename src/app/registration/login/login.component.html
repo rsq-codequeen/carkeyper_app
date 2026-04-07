@@ -31,7 +31,7 @@
       
       <form (ngSubmit)="onSubmit()" class="space-y-6">
         <div class="relative group">
-          <label class="block text-[10px] font-bold text-gray-500 uppercase tracking-[0.2em] mb-2 ml-2">Digital Signature</label>
+          <label class="block text-[10px] font-bold text-gray-500 uppercase tracking-[0.2em] mb-2 ml-2">Email</label>
           <div class="relative flex items-center">
             <svg class="w-5 h-5 absolute left-3 text-seagreen" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M21.75 6.75v10.5a2.25 2.25 0 0 1-2.25 2.25h-15a2.25 2.25 0 0 1-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0 0 19.5 4.5h-15a2.25 2.25 0 0 0-2.25 2.25m19.5 0v.243a2.25 2.25 0 0 1-1.07 1.916l-7.5 4.615a2.25 2.25 0 0 1-2.36 0L3.32 8.91a2.25 2.25 0 0 1-1.07-1.916V6.75" />
@@ -43,7 +43,7 @@
         </div>
 
         <div class="relative group">
-          <label class="block text-[10px] font-bold text-gray-500 uppercase tracking-[0.2em] mb-2 ml-2">Access Key</label>
+          <label class="block text-[10px] font-bold text-gray-500 uppercase tracking-[0.2em] mb-2 ml-2">Password</label>
           <div class="relative flex items-center">
             <svg class="w-5 h-5 absolute left-3 text-seagreen" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M16.5 10.5V6.75a4.5 4.5 0 1 0-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 0 0 2.25-2.25v-6.75a2.25 2.25 0 0 0-2.25-2.25H6.75a2.25 2.25 0 0 0-2.25 2.25v6.75a2.25 2.25 0 0 0 2.25 2.25Z" />
@@ -56,9 +56,16 @@
 
         <button type="submit"
                 class="w-full py-4 rounded-xl bg-gradient-to-r from-seagreen to-[#2ed573] text-black font-black uppercase tracking-[0.25em] text-xs shadow-[0_0_20px_rgba(46,213,115,0.2)] hover:shadow-seagreen/40 transition-all">
-          Authenticate
+          Login
         </button>
+        <div class="text-white text-center text-xs">
+          <h3 class="font-bold">Use the following credentials to login</h3>
+      <p>Email : iqra&#64;carkeyper.com</p>
+        <p>Password : Temp123!</p>
+        <h4 class="text-orange-600 font-bold">Note : This system is specifically designed for dekstop only</h4>
+        </div>
       </form>
+      
     </div>
   </div>
 </div>
